@@ -41,6 +41,7 @@ require('lazy').setup({
   { import = 'plugins.conform' },    -- フォーマッター
   { import = 'plugins.lint' },       -- リンター
   { import = 'plugins.dap' },        -- デバッガー
+  { import = 'plugins.devcontainer' }, -- Dev Container
 }, {
   -- lazy.nvim UI設定
   ui = {

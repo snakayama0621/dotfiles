@@ -240,7 +240,20 @@ autocmd('FileType', {
 -- 診断の自動表示設定なども可能
 
 ------------------------------------------------------------------------------
--- 11. 大きなファイルの最適化
+-- 11. Dev Container設定ファイルの検出
+------------------------------------------------------------------------------
+
+autocmd({ 'BufRead', 'BufNewFile' }, {
+  group = augroup('devcontainer_filetype', { clear = true }),
+  pattern = { 'devcontainer.json', '.devcontainer.json' },
+  callback = function()
+    vim.bo.filetype = 'jsonc'
+  end,
+  desc = 'devcontainer.jsonをJSONCとして認識',
+})
+
+------------------------------------------------------------------------------
+-- 12. 大きなファイルの最適化
 ------------------------------------------------------------------------------
 
 autocmd('BufReadPre', {

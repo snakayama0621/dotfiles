@@ -6,6 +6,7 @@ return {
   -- LSPConfig
   {
     'neovim/nvim-lspconfig',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       -- Mason: LSPサーバー管理
       'williamboman/mason.nvim',
@@ -40,7 +41,7 @@ return {
               'phpcs',           -- PHP
             },
             auto_update = false,
-            run_on_start = true,
+            run_on_start = false,
           })
         end,
       },

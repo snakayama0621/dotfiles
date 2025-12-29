@@ -70,7 +70,7 @@ vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'LSP: 定義へジャ
 vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'LSP: 宣言へジャンプ' })
 vim.keymap.set('n', 'gr', vim.lsp.buf.references, { desc = 'LSP: 参照一覧' })
 vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = 'LSP: 実装へジャンプ' })
-vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, { desc = 'LSP: 型定義へジャンプ' })
+vim.keymap.set('n', '<leader>gt', vim.lsp.buf.type_definition, { desc = 'LSP: 型定義へジャンプ' })
 
 -- ホバー・シグネチャヘルプ
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'LSP: ホバー情報表示' })
@@ -126,7 +126,15 @@ vim.keymap.set('n', '<leader>tv', '<cmd>vsplit | terminal<CR>', { desc = 'ター
 vim.keymap.set('n', '<leader>th', '<cmd>split | terminal<CR>', { desc = 'ターミナル(水平分割)' })
 
 ------------------------------------------------------------------------------
--- 7. ファイルプレビュー
+-- 7. タブ操作
+------------------------------------------------------------------------------
+
+vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<CR>', { desc = '新しいタブ' })
+vim.keymap.set('n', '<leader>tc', '<cmd>tabclose<CR>', { desc = 'タブを閉じる' })
+vim.keymap.set('n', '<leader>to', '<cmd>tabonly<CR>', { desc = '他のタブを閉じる' })
+
+------------------------------------------------------------------------------
+-- 8. ファイルプレビュー
 ------------------------------------------------------------------------------
 
 -- 現在のファイルをブラウザで開く
@@ -142,7 +150,7 @@ vim.keymap.set('n', '<leader>op', function()
 end, { desc = 'ブラウザでプレビュー' })
 
 ------------------------------------------------------------------------------
--- 8. その他便利機能
+-- 9. その他便利機能
 ------------------------------------------------------------------------------
 
 -- カーソル位置を保持したままファイル全体をインデント

@@ -63,6 +63,12 @@
 - Git blame表示
 - 差分表示
 
+### 5. Dev Container統合
+
+- VS Code互換のdevcontainer.json対応
+- コンテナ内でのコマンド実行
+- ターミナル統合（toggleterm）
+
 ---
 
 ## インストール
@@ -75,6 +81,9 @@ brew install neovim ripgrep node
 
 # 推奨
 brew install fd lazygit
+
+# Dev Container使用時
+npm install -g @devcontainers/cli
 ```
 
 ### セットアップ
@@ -186,7 +195,29 @@ lazy.nvimが自動的にプラグインをインストールします（初回�
 | `<leader>tt` | ターミナル起動 |
 | `<leader>tv` | ターミナル（垂直分割） |
 | `<leader>th` | ターミナル（水平分割） |
+| `<C-\>` | ターミナル表示/非表示トグル |
 | `<Esc><Esc>` | ターミナルモード終了 |
+
+### Dev Container操作
+
+| キー | 説明 |
+|------|------|
+| `<leader>Du` | コンテナをビルド・起動 |
+| `<leader>Dc` | コンテナ内シェルに接続 |
+| `<leader>Dt` | コンテナターミナル切替 |
+| `<leader>Dd` | コンテナを停止・削除 |
+| `<leader>De` | コンテナ内でコマンド実行 |
+| `<leader>DN` | Neovim終了してコンテナ内で再起動 |
+
+**使い方:**
+```
+1. .devcontainer/devcontainer.json があるプロジェクトを開く
+2. <leader>Du でコンテナをビルド・起動
+3. <leader>Dc でコンテナ内シェルに接続（画面下部に表示）
+4. <C-\> でターミナルの表示/非表示を切替
+5. ターミナル内で <C-\><C-n> → <C-w>k でファイルへ移動
+6. <leader>Dd で作業終了時にコンテナ停止
+```
 
 ---
 
@@ -225,6 +256,10 @@ lazy.nvimが自動的にプラグインをインストールします（初回�
 
 #### Git統合
 - **gitsigns.nvim** - Git変更可視化・操作
+
+#### Dev Container
+- **devcontainer-cli.nvim** - Dev Container CLI統合
+- **toggleterm.nvim** - ターミナル統合
 
 ---
 
