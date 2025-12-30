@@ -17,8 +17,9 @@ after-startup-command = [
 
 # Notify sketchybar on workspace change
 exec-on-workspace-change = [
-  '/bin/bash', '-c',
-  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+  '/bin/bash',
+  '-c',
+  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE',
 ]
 
 # Start AeroSpace at login
@@ -74,7 +75,9 @@ outer.top = [
   { monitor.'DELL S2722DGM' = 35 },
   { monitor.24N1 = 35 },
   { monitor.'BenQ XL2410T' = 35 },
-  5
+  { monitor.'XG48WCR' = 35 },
+  { monitor.'Built-in Retina Display' = 35 },
+  5,
 ]
 outer.right = 5
 
