@@ -75,7 +75,7 @@ outer.top = [
   { monitor.'DELL S2722DGM' = 35 },
   { monitor.24N1 = 35 },
   { monitor.'BenQ XL2410T' = 35 },
-  { monitor.'XG48WCR' = 35 },
+  { monitor.'XG49WCR' = 35 },
   { monitor.'Built-in Retina Display' = 35 },
   5,
 ]
