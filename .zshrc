@@ -105,6 +105,9 @@ export EDITOR=nvim
 # export XDG_CONFIG_HOME=~/dotfiles
 export XDG_CONFIG_HOME=~/.config
 
+# グローバルnpmモジュールのパス（czg等で必要）
+export NODE_PATH="/opt/homebrew/lib/node_modules"
+
 
 ############
 # 評価
