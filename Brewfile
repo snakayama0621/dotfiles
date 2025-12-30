@@ -93,6 +93,7 @@ brew "mas"                # Mac App Store CLI
 brew "act"                # GitHub Actions ローカル実行
 brew "topgrade"           # 一括アップグレード
 brew "chezmoi"            # Dotfile管理
+brew "gibo"               # gitignoreボイラープレート生成
 
 # AI/LLM
 brew "gemini-cli"         # Gemini CLI
