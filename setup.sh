@@ -101,6 +101,50 @@ run_brew_bundle() {
   fi
 }
 
+# sketchybarのセットアップ（SbarLua + フォント）
+run_sketchybar_setup() {
+  if ! command -v sketchybar &> /dev/null; then
+    log_info "sketchybar not installed, skipping setup"
+    return 0
+  fi
+
+  log_step "Setting up sketchybar..."
+
+  # SbarLua install
+  if [ ! -f "$HOME/.local/share/sketchybar_lua/sketchybar.so" ]; then
+    log_info "Installing SbarLua..."
+    if [ "$DRY_RUN" = true ]; then
+      log_warning "[DRY-RUN] Would install SbarLua"
+    else
+      git clone https://github.com/FelixKratz/SbarLua.git /tmp/SbarLua
+      (cd /tmp/SbarLua && make install)
+      rm -rf /tmp/SbarLua
+      log_success "SbarLua installed"
+    fi
+  else
+    log_info "SbarLua already installed"
+  fi
+
+  # App fonts
+  mkdir -p "$HOME/Library/Fonts"
+  for font_url in \
+    "https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.5/sketchybar-app-font.ttf" \
+    "https://github.com/SoichiroYamane/sketchybar-app-font-bg/releases/download/v0.0.2/sketchybar-app-font-bg.ttf"
+  do
+    font_name=$(basename "$font_url")
+    if [ ! -f "$HOME/Library/Fonts/$font_name" ]; then
+      if [ "$DRY_RUN" = true ]; then
+        log_warning "[DRY-RUN] Would download $font_name"
+      else
+        curl -sL "$font_url" -o "$HOME/Library/Fonts/$font_name"
+        log_success "Installed $font_name"
+      fi
+    fi
+  done
+
+  log_success "sketchybar setup completed"
+}
+
 # link.shを実行
 run_link_script() {
   log_step "Creating symbolic links..."
@@ -167,6 +211,8 @@ else
   run_brew_bundle
   echo ""
   run_link_script
+  echo ""
+  run_sketchybar_setup
 fi
 
 echo ""
