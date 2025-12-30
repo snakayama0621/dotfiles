@@ -350,3 +350,5 @@ vpn_disconnect_if_connected() {
 
 abbr -S lg='lazygit' >>/dev/null
 
+alias proot='cd $(git rev-parse --show-toplevel)'
+abbr -S -qq -='cd -'
