@@ -344,3 +344,6 @@ vpn_disconnect_if_connected() {
     echo "Disconnected all vpn connections."
   fi
 }
+
+
+abbr -S lg='lazygit' >>/dev/null
