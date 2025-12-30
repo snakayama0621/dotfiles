@@ -345,5 +345,5 @@ vpn_disconnect_if_connected() {
   fi
 }
 
-
 abbr -S lg='lazygit' >>/dev/null
+
