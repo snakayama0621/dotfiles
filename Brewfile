@@ -19,6 +19,9 @@ tap "sanemat/font"
 
 # シェル・ターミナル
 brew "sheldon"            # Zshプラグインマネージャー
+brew "lua"                # Lua（sketchybar用）
+brew "switchaudio-osx"    # オーディオ切替（sketchybar用）
+brew "nowplaying-cli"     # メディア情報取得（sketchybar用）
 brew "starship"           # プロンプトカスタマイズ
 brew "tmux"               # ターミナルマルチプレクサ
 brew "zoxide"             # スマートcd
@@ -144,6 +147,9 @@ cask "kiro-cli"           # AI CLI
 # フォント
 cask "font-hack-nerd-font"          # Nerd Font (Hack)
 cask "font-symbols-only-nerd-font"  # Nerd Font (Symbols Only)
+cask "sf-symbols"                   # Appleシンボルフォント（sketchybar用）
+cask "font-sf-mono"                 # 数字表示用フォント（sketchybar用）
+cask "font-sf-pro"                  # テキスト表示用フォント（sketchybar用）
 
 
 # ============================================================================
