@@ -350,3 +350,34 @@ vpn_disconnect_if_connected() {
 
 abbr -S lg='lazygit' >>/dev/null
 
+alias proot='cd $(git rev-parse --show-toplevel)'
+abbr -S -qq -='cd -'
+
+alias gia='create_gitignore'
+
+# giboで.gitignoreを作成
+create_gitignore() {
+    local input_file="$1"
+
+    # 引数がない場合は.gitignoreに追加
+    if [[ -z "$input_file" ]]; then
+        input_file=".gitignore"
+    fi
+
+    # テンプレートを選択
+    local selected=$(gibo list | fzf \
+        --multi \
+        --preview "gibo dump {} | bat --style=numbers --color=always --paging=never")
+
+    # 未選択の場合は終了
+    if [[ -z "$selected" ]]; then
+        echo "No templates selected. Exiting."
+        return
+    fi
+
+    # 選択したテンプレートを指定したファイルに追加
+    echo "$selected" | xargs gibo dump >> "$input_file"
+
+    # 結果のファイルをbatで表示
+    bat "$input_file"
+}
