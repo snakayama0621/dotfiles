@@ -32,9 +32,9 @@ return {
         auto_trigger = true,  -- 自動で提案を表示
         debounce = 75,        -- 入力後の待機時間(ms)
         keymap = {
-          accept = "<M-l>",         -- Alt+l で提案を受け入れ
-          accept_word = "<M-w>",    -- Alt+w で単語単位で受け入れ
-          accept_line = "<M-j>",    -- Alt+j で行単位で受け入れ
+          accept = "<C-l>",         -- Ctrl+l で提案を受け入れ
+          accept_word = "<C-;>",    -- Ctrl+; で単語単位で受け入れ
+          accept_line = "<C-y>",    -- Ctrl+y で行単位で受け入れ
           next = "<M-]>",           -- Alt+] で次の提案
           prev = "<M-[>",           -- Alt+[ で前の提案
           dismiss = "<C-]>",        -- Ctrl+] で提案を却下
@@ -70,9 +70,9 @@ return {
 --
 -- 2. インライン補完
 --    コードを入力すると自動で提案が表示される（グレーのゴーストテキスト）
---    <M-l> (Alt+l)     -- 提案を受け入れ
---    <M-w> (Alt+w)     -- 単語単位で受け入れ
---    <M-j> (Alt+j)     -- 行単位で受け入れ
+--    <C-l> (Ctrl+l)    -- 提案を受け入れ
+--    <C-;> (Ctrl+;)    -- 単語単位で受け入れ
+--    <C-y> (Ctrl+y)    -- 行単位で受け入れ
 --    <M-]> (Alt+])     -- 次の提案
 --    <M-[> (Alt+[)     -- 前の提案
 --    <C-]> (Ctrl+])    -- 提案を却下
