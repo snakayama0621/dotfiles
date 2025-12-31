@@ -80,7 +80,6 @@ return {
           'html',             -- HTML
           'cssls',            -- CSS
           'tailwindcss',      -- Tailwind CSS
-          'emmet_ls',         -- Emmet
 
           -- データ・設定ファイル
           'jsonls',           -- JSON

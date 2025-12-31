@@ -30,6 +30,7 @@ require('lazy').setup({
   { import = 'plugins.surround' },
   { import = 'plugins.comment' },
   { import = 'plugins.gitsigns' },
+  { import = 'plugins.lazygit' },    -- Lazygit統合
   { import = 'plugins.yazi' },
   { import = 'plugins.peek' },
   { import = 'plugins.live-server' },

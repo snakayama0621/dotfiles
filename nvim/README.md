@@ -167,10 +167,11 @@ lazy.nvimが自動的にプラグインをインストールします（初回�
 | `<leader>fr` | 最近使用ファイル |
 | `<leader>fk` | キーマップ検索 |
 
-### Git操作（Gitsigns）
+### Git操作
 
 | キー | 説明 |
 |------|------|
+| `<leader>lg` | Lazygit起動（フローティング） |
 | `]c` / `[c` | 次/前の変更箇所へ移動 |
 | `<leader>gs` | Hunkをステージ |
 | `<leader>gr` | Hunkをリセット |
@@ -256,6 +257,7 @@ lazy.nvimが自動的にプラグインをインストールします（初回�
 
 #### Git統合
 - **gitsigns.nvim** - Git変更可視化・操作
+- **lazygit統合** - toggletermでLazygit起動（`<leader>lg`）
 
 #### Dev Container
 - **devcontainer-cli.nvim** - Dev Container CLI統合
@@ -279,7 +281,8 @@ lazy.nvimが自動的にプラグインをインストールします（初回�
 │       ├── telescope.lua    # ファジーファインダー
 │       ├── lsp.lua          # LSP設定
 │       ├── completion.lua   # 補完設定
-│       └── gitsigns.lua     # Git統合
+│       ├── gitsigns.lua     # Git統合
+│       └── lazygit.lua      # Lazygit統合
 └── README.md                # このファイル
 ```
 
