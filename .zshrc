@@ -147,6 +147,9 @@ alias proot='cd $(git rev-parse --show-toplevel)'
 alias vi='nvim'
 alias vim='nvim'
 
+# lazygit
+alias lg='lazygit'
+
 # cd（zoxide + ls）
 alias cd='zls'
 alias zz='z'
@@ -164,7 +167,6 @@ alias gia='create_gitignore'
 # ============================================================================
 
 abbr -S -qq vpn='vpnutil' >>/dev/null
-abbr -S -qq lg='lazygit' >>/dev/null
 abbr -S -qq -='cd -' >>/dev/null
 
 # ============================================================================
