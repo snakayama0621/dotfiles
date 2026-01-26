@@ -33,6 +33,7 @@ brew "fd"                 # findの代替
 brew "ripgrep"            # grepの代替
 brew "fzf"                # ファジー検索
 brew "bat"                # catの代替（シンタックスハイライト付き）
+brew "glow"               # Markdownレンダラー
 brew "exa"                # lsの代替
 brew "tree"               # ディレクトリツリー表示
 

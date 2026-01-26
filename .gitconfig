@@ -33,3 +33,6 @@
 
 [diff]
     colorMoved = default       # 移動した行を色分け表示
+[user]
+	name = TetraTechAi
+	email = tetoran@tetoran.com

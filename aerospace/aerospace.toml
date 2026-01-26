@@ -12,10 +12,7 @@
 after-login-command = []
 
 # AeroSpace起動後に実行するコマンド
-after-startup-command = [
-  'exec-and-forget borders',      # ウィンドウボーダー表示
-  'exec-and-forget sketchybar',   # ステータスバー起動
-]
+after-startup-command = []
 
 # ワークスペース変更時にsketchybarへ通知
 exec-on-workspace-change = [
@@ -79,8 +76,8 @@ outer.top = [
   { monitor.24N1 = 35 },
   { monitor.'BenQ XL2410T' = 35 },
   { monitor.'XG49WCR' = 35 },
-  { monitor.'Built-in Retina Display' = 35 },
-  5,  # デフォルト値
+  # { monitor.'Built-in Retina Display' = 35 },
+  5, # デフォルト値
 ]
 
 # ----------------------------------------------------------------------------
@@ -93,20 +90,20 @@ alt-slash = 'layout tiles horizontal vertical'     # タイル: 水平/垂直切
 alt-comma = 'layout accordion horizontal vertical' # アコーディオン: 水平/垂直切替
 
 # 5.2 フォーカス移動（Vim風キーバインド）
-alt-h = 'focus left'   # 左のウィンドウへ
-alt-j = 'focus down'   # 下のウィンドウへ
-alt-k = 'focus up'     # 上のウィンドウへ
-alt-l = 'focus right'  # 右のウィンドウへ
+alt-h = 'focus left'  # 左のウィンドウへ
+alt-j = 'focus down'  # 下のウィンドウへ
+alt-k = 'focus up'    # 上のウィンドウへ
+alt-l = 'focus right' # 右のウィンドウへ
 
 # 5.3 ウィンドウ移動
-alt-shift-h = 'move left'   # ウィンドウを左へ
-alt-shift-j = 'move down'   # ウィンドウを下へ
-alt-shift-k = 'move up'     # ウィンドウを上へ
-alt-shift-l = 'move right'  # ウィンドウを右へ
+alt-shift-h = 'move left'  # ウィンドウを左へ
+alt-shift-j = 'move down'  # ウィンドウを下へ
+alt-shift-k = 'move up'    # ウィンドウを上へ
+alt-shift-l = 'move right' # ウィンドウを右へ
 
 # 5.4 リサイズ
-alt-shift-minus = 'resize smart -50'  # 縮小
-alt-shift-equal = 'resize smart +50'  # 拡大
+alt-shift-minus = 'resize smart -50' # 縮小
+alt-shift-equal = 'resize smart +50' # 拡大
 
 # 5.5 ワークスペース切替（数字キー）
 alt-1 = 'workspace 1'
@@ -179,9 +176,9 @@ alt-shift-y = 'move-node-to-workspace Y'
 alt-shift-z = 'move-node-to-workspace Z'
 
 # 5.7 その他
-alt-tab = 'workspace-back-and-forth'                      # 前のワークスペースに戻る
-alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'  # ワークスペースを次のモニタへ
-alt-shift-semicolon = 'mode service'                      # サービスモードへ切替
+alt-tab = 'workspace-back-and-forth'                           # 前のワークスペースに戻る
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next' # ワークスペースを次のモニタへ
+alt-shift-semicolon = 'mode service'                           # サービスモードへ切替
 
 # ----------------------------------------------------------------------------
 # 6. サービスモード キーバインド
@@ -189,9 +186,9 @@ alt-shift-semicolon = 'mode service'                      # サービスモー�
 # alt + shift + ; でサービスモードに入る
 [mode.service.binding]
 
-esc = ['reload-config', 'mode main']              # 設定リロードしてメインモードへ
-r = ['flatten-workspace-tree', 'mode main']       # レイアウトリセット
-f = ['layout floating tiling', 'mode main']       # フローティング/タイリング切替
+esc = ['reload-config', 'mode main']        # 設定リロードしてメインモードへ
+r = ['flatten-workspace-tree', 'mode main'] # レイアウトリセット
+f = ['layout floating tiling', 'mode main'] # フローティング/タイリング切替
 
 # ウィンドウ結合（サービスモード中）
 alt-shift-h = ['join-with left', 'mode main']
