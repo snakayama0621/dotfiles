@@ -12,10 +12,7 @@
 after-login-command = []
 
 # AeroSpace起動後に実行するコマンド
-after-startup-command = [
-  'exec-and-forget borders',    # ウィンドウボーダー表示
-  'exec-and-forget sketchybar', # ステータスバー起動
-]
+after-startup-command = []
 
 # ワークスペース変更時にsketchybarへ通知
 exec-on-workspace-change = [
