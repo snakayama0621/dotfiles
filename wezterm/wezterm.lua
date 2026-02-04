@@ -8,6 +8,9 @@ local wezterm = require("wezterm")
 -- 設定ビルダーを初期化
 local config = wezterm.config_builder()
 
+-- ベル状態を追跡するためのグローバルストレージを初期化
+wezterm.GLOBAL.bell_panes = wezterm.GLOBAL.bell_panes or {}
+
 -- ============================================================================
 -- 基本設定
 -- ============================================================================
@@ -17,6 +20,13 @@ config.automatically_reload_config = true
 
 -- システムベル音を有効化（Claude Codeタスク完了通知用）
 config.audible_bell = "SystemBeep"
+
+-- ビジュアルベルを有効化（bellイベントのトリガー用）
+config.visual_bell = {
+	fade_in_duration_ms = 0,
+	fade_out_duration_ms = 0,
+	target = "CursorColor",
+}
 
 -- WezTermの更新チェックを有効化
 config.check_for_updates = true
@@ -315,25 +325,44 @@ wezterm.on("window-config-reloaded", function(window, pane)
 	wezterm.log_info("the config was reloaded for this window!")
 end)
 
--- タブタイトルのフォーマット設定
-wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-	-- デフォルトの背景色(グレー系)
-	local background = "#5c6d74"
-	-- デフォルトの前景色(白)
-	local foreground = "#FFFFFF"
+-- ベルが鳴った時にペインIDを記録し、タブバーを再描画
+wezterm.on("bell", function(window, pane)
+	local pane_id = tostring(pane:pane_id())
+	wezterm.log_info("Bell triggered for pane: " .. pane_id)
+	wezterm.GLOBAL.bell_panes[pane_id] = true
+	-- set_right_statusでタブバーの再描画をトリガー
+	window:set_right_status("")
+end)
 
-	-- アクティブなタブの場合
-	if tab.is_active then
-		-- 背景色をゴールド系に変更
-		background = "#ae8b2d"
-		-- 前景色は白のまま
-		foreground = "#FFFFFF"
+-- タブタイトルのフォーマット設定（ベル通知対応）
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+	local background = "#5c6d74"
+	local foreground = "#FFFFFF"
+	local bell_icon = ""
+
+	-- タブ内の全ペインでベル状態をチェック
+	local has_bell = false
+	for _, pane_info in ipairs(tab.panes) do
+		local pane_id = tostring(pane_info.pane_id)
+		if wezterm.GLOBAL.bell_panes and wezterm.GLOBAL.bell_panes[pane_id] then
+			has_bell = true
+			-- アクティブタブの場合、ベル状態をクリア
+			if tab.is_active then
+				wezterm.GLOBAL.bell_panes[pane_id] = nil
+			end
+		end
 	end
 
-	-- タブタイトルを作成(両端に3つのスペースを追加し、最大幅で切り詰め)
-	local title = "   " .. wezterm.truncate_right(tab.active_pane.title, max_width - 1) .. "   "
+	-- タブの状態に応じて色を設定
+	if tab.is_active then
+		background = "#ae8b2d" -- ゴールド（アクティブ）
+	elseif has_bell then
+		background = "#cc3333" -- 赤色（ベル通知あり）
+		bell_icon = " 🔔"
+	end
 
-	-- タイトルの表示スタイルを返す
+	local title = "   " .. wezterm.truncate_right(tab.active_pane.title, max_width - 4) .. bell_icon .. "   "
+
 	return {
 		{ Background = { Color = background } },
 		{ Foreground = { Color = foreground } },
