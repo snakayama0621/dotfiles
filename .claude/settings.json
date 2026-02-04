@@ -1,37 +1,219 @@
 {
+  "$schema": "https://code.claude.com/settings-schema.json",
   "env": {
     "MAX_THINKING_TOKENS": "10000"
   },
   "permissions": {
     "allow": [
       "Read",
+      "Write",
+      "Edit",
+      "MultiEdit",
       "Grep",
       "Glob",
+      "LS",
       "Task",
+      "TodoRead",
       "TodoWrite",
+      "NotebookRead",
+      "NotebookEdit",
+      "WebFetch",
+      "WebSearch",
+
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(wc:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(which:*)",
+      "Bash(pwd)",
+      "Bash(echo:*)",
+      "Bash(date:*)",
+      "Bash(whoami)",
+      "Bash(hostname)",
+      "Bash(ping:*)",
+
+      "Bash(cd:*)",
+      "Bash(mkdir:*)",
+      "Bash(touch:*)",
+      "Bash(cp:*)",
+      "Bash(mv:*)",
+
+      "Bash(git status)",
+      "Bash(git diff:*)",
       "Bash(git show:*)",
       "Bash(git log:*)",
-      "Search",
-      "Bash(cat :*)",
-      "Bash(ls :*)",
-      "Bash(head :*)",
-      "Bash(tail :*)",
-      "Bash(grep :*)",
-      "Bash(find :*)",
-      "Bash(ping :*)"
+      "Bash(git branch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git switch:*)",
+      "Bash(git stash:*)",
+      "Bash(git fetch:*)",
+      "Bash(git pull:*)",
+      "Bash(git add:*)",
+      "Bash(git restore:*)",
+      "Bash(git merge:*)",
+      "Bash(gh pr:*)",
+      "Bash(gh issue:*)",
+      "Bash(gh repo view:*)",
+
+      "Bash(npm:*)",
+      "Bash(npx:*)",
+      "Bash(yarn:*)",
+      "Bash(pnpm:*)",
+      "Bash(node:*)",
+      "Bash(bun:*)",
+
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(pip:*)",
+      "Bash(pip3:*)",
+      "Bash(uv:*)",
+      "Bash(ruff:*)",
+      "Bash(mypy:*)",
+      "Bash(pytest:*)",
+
+      "Bash(php:*)",
+      "Bash(composer:*)",
+      "Bash(artisan:*)",
+
+      "Bash(go:*)",
+      "Bash(cargo:*)",
+      "Bash(rustc:*)",
+      "Bash(rustfmt:*)",
+
+      "Bash(docker ps:*)",
+      "Bash(docker logs:*)",
+      "Bash(docker images:*)",
+      "Bash(docker inspect:*)",
+      "Bash(docker-compose ps:*)",
+      "Bash(docker-compose logs:*)",
+
+      "Bash(terraform plan:*)",
+      "Bash(terraform fmt:*)",
+      "Bash(terraform validate:*)",
+      "Bash(terraform state list:*)",
+      "Bash(terraform state show:*)",
+      "Bash(terraform output:*)",
+
+      "Bash(aws s3 ls:*)",
+      "Bash(aws s3 cp:*)",
+      "Bash(aws ecs describe:*)",
+      "Bash(aws ecs list:*)",
+      "Bash(aws logs:*)",
+      "Bash(aws cloudwatch:*)",
+      "Bash(aws ec2 describe:*)",
+      "Bash(aws rds describe:*)",
+      "Bash(aws lambda list:*)",
+      "Bash(aws lambda get:*)",
+
+      "Bash(make:*)",
+      "Bash(cmake:*)",
+
+      "Bash(sed:*)",
+      "Bash(awk:*)",
+      "Bash(sort:*)",
+      "Bash(uniq:*)",
+      "Bash(cut:*)",
+      "Bash(tr:*)",
+      "Bash(xargs:*)",
+      "Bash(jq:*)",
+      "Bash(yq:*)",
+      "Bash(diff:*)",
+
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+
+      "Bash(prettier:*)",
+      "Bash(eslint:*)",
+      "Bash(black:*)",
+      "Bash(isort:*)",
+      "Bash(jest:*)",
+      "Bash(vitest:*)"
     ],
     "deny": [
-      "Bash(git commit:*)",
-      "Bash(git push:*)",
-      "Bash(sudo:*)",
       "Read(.env)",
       "Read(.env.*)",
-      "Bash(git config:*)",
-      "Bash(chmod 777:*)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/secrets/**)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/*secret*)",
+      "Read(**/*credential*)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/credentials)",
+      "Read(~/.config/gh/hosts.yml)",
+
+      "Edit(.env)",
+      "Edit(.env.*)",
+      "Edit(**/.env)",
+      "Edit(**/.env.*)",
+      "Edit(**/secrets/**)",
+      "Edit(**/*.pem)",
+      "Edit(**/*.key)",
+      "Edit(~/.ssh/**)",
+
+      "Write(.env)",
+      "Write(.env.*)",
+      "Write(**/.env)",
+      "Write(**/.env.*)",
+      "Write(**/secrets/**)",
+
+      "Bash(rm -rf /)",
       "Bash(rm -rf /*)",
-      "Bash(gh repo delete:*)"
+      "Bash(rm -rf ~)",
+      "Bash(rm -rf ~/*)",
+      "Bash(sudo rm:*)",
+      "Bash(chmod 777:*)",
+      "Bash(:(){ :|:& };:)",
+
+      "Bash(sudo:*)",
+      "Bash(su:*)",
+
+      "Bash(git config --global:*)",
+      "Bash(gh repo delete:*)",
+      "Bash(gh auth:*)",
+
+      "Bash(terraform destroy:*)",
+      "Bash(aws iam:*)",
+      "Bash(aws sts:*)",
+
+      "Bash(docker system prune:*)",
+
+      "Bash(shutdown:*)",
+      "Bash(reboot:*)",
+      "Bash(systemctl:*)",
+
+      "Bash(ssh:*)",
+      "Bash(scp:*)",
+      "Bash(rsync:*)",
+
+      "Bash(export AWS_*)",
+      "Bash(export *SECRET*)",
+      "Bash(export *TOKEN*)",
+      "Bash(export *KEY*)"
+    ],
+    "ask": [
+      "Bash(rm:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git rebase:*)",
+      "Bash(git reset:*)",
+      "Bash(git config:*)",
+      "Bash(docker run:*)",
+      "Bash(docker exec:*)",
+      "Bash(docker build:*)",
+      "Bash(docker-compose up:*)",
+      "Bash(docker-compose down:*)",
+      "Bash(terraform apply:*)",
+      "Bash(terraform init:*)",
+      "Bash(kill:*)",
+      "Bash(pkill:*)"
     ]
   },
+  "defaultMode": "acceptEdits",
   "hooks": {
     "PreToolUse": [
       {
@@ -40,6 +222,17 @@
           {
             "type": "command",
             "command": "~/.claude/scripts/deny-check.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // empty' | xargs -I {} sh -c 'case \"{}\" in *.js|*.ts|*.jsx|*.tsx|*.json|*.css|*.md) npx prettier --write \"{}\" 2>/dev/null || true;; *.py) black \"{}\" 2>/dev/null || true;; esac'"
           }
         ]
       }
