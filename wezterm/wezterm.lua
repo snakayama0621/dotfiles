@@ -361,7 +361,10 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 		bell_icon = " 🔔"
 	end
 
-	local title = "   " .. wezterm.truncate_right(tab.active_pane.title, max_width - 4) .. bell_icon .. "   "
+	-- タブ番号（1始まり）とショートカットキーのみ表示
+	local tab_number = tab.tab_index + 1
+	local shortcut = "⌘" .. tab_number
+	local title = " " .. bell_icon .. " " .. shortcut .. "  "
 
 	return {
 		{ Background = { Color = background } },
