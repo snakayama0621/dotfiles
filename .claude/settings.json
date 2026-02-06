@@ -1,8 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "preferredNotifChannel": "terminal_bell",
   "env": {
-    "MAX_THINKING_TOKENS": "10000"
+    "MAX_THINKING_TOKENS": "10000",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
   "permissions": {
     "allow": [
@@ -20,7 +20,6 @@
       "NotebookEdit",
       "WebFetch",
       "WebSearch",
-
       "Bash(cat:*)",
       "Bash(ls:*)",
       "Bash(head:*)",
@@ -35,13 +34,11 @@
       "Bash(whoami)",
       "Bash(hostname)",
       "Bash(ping:*)",
-
       "Bash(cd:*)",
       "Bash(mkdir:*)",
       "Bash(touch:*)",
       "Bash(cp:*)",
       "Bash(mv:*)",
-
       "Bash(git status)",
       "Bash(git diff:*)",
       "Bash(git show:*)",
@@ -58,14 +55,12 @@
       "Bash(gh pr:*)",
       "Bash(gh issue:*)",
       "Bash(gh repo view:*)",
-
       "Bash(npm:*)",
       "Bash(npx:*)",
       "Bash(yarn:*)",
       "Bash(pnpm:*)",
       "Bash(node:*)",
       "Bash(bun:*)",
-
       "Bash(python:*)",
       "Bash(python3:*)",
       "Bash(pip:*)",
@@ -74,30 +69,25 @@
       "Bash(ruff:*)",
       "Bash(mypy:*)",
       "Bash(pytest:*)",
-
       "Bash(php:*)",
       "Bash(composer:*)",
       "Bash(artisan:*)",
-
       "Bash(go:*)",
       "Bash(cargo:*)",
       "Bash(rustc:*)",
       "Bash(rustfmt:*)",
-
       "Bash(docker ps:*)",
       "Bash(docker logs:*)",
       "Bash(docker images:*)",
       "Bash(docker inspect:*)",
       "Bash(docker-compose ps:*)",
       "Bash(docker-compose logs:*)",
-
       "Bash(terraform plan:*)",
       "Bash(terraform fmt:*)",
       "Bash(terraform validate:*)",
       "Bash(terraform state list:*)",
       "Bash(terraform state show:*)",
       "Bash(terraform output:*)",
-
       "Bash(aws s3 ls:*)",
       "Bash(aws s3 cp:*)",
       "Bash(aws ecs describe:*)",
@@ -108,10 +98,8 @@
       "Bash(aws rds describe:*)",
       "Bash(aws lambda list:*)",
       "Bash(aws lambda get:*)",
-
       "Bash(make:*)",
       "Bash(cmake:*)",
-
       "Bash(sed:*)",
       "Bash(awk:*)",
       "Bash(sort:*)",
@@ -122,10 +110,8 @@
       "Bash(jq:*)",
       "Bash(yq:*)",
       "Bash(diff:*)",
-
       "Bash(curl:*)",
       "Bash(wget:*)",
-
       "Bash(prettier:*)",
       "Bash(eslint:*)",
       "Bash(black:*)",
@@ -146,7 +132,6 @@
       "Read(~/.ssh/**)",
       "Read(~/.aws/credentials)",
       "Read(~/.config/gh/hosts.yml)",
-
       "Edit(.env)",
       "Edit(.env.*)",
       "Edit(**/.env)",
@@ -155,41 +140,32 @@
       "Edit(**/*.pem)",
       "Edit(**/*.key)",
       "Edit(~/.ssh/**)",
-
       "Write(.env)",
       "Write(.env.*)",
       "Write(**/.env)",
       "Write(**/.env.*)",
       "Write(**/secrets/**)",
-
       "Bash(rm -rf /)",
       "Bash(rm -rf /*)",
       "Bash(rm -rf ~)",
       "Bash(rm -rf ~/*)",
       "Bash(sudo rm:*)",
       "Bash(chmod 777:*)",
-
       "Bash(sudo:*)",
       "Bash(su:*)",
-
       "Bash(git config --global:*)",
       "Bash(gh repo delete:*)",
       "Bash(gh auth:*)",
-
       "Bash(terraform destroy:*)",
       "Bash(aws iam:*)",
       "Bash(aws sts:*)",
-
       "Bash(docker system prune:*)",
-
       "Bash(shutdown:*)",
       "Bash(reboot:*)",
       "Bash(systemctl:*)",
-
       "Bash(ssh:*)",
       "Bash(scp:*)",
       "Bash(rsync:*)",
-
       "Bash(export AWS_*)",
       "Bash(export *SECRET*)",
       "Bash(export *TOKEN*)",
@@ -213,7 +189,6 @@
       "Bash(pkill:*)"
     ]
   },
-  "defaultMode": "acceptEdits",
   "hooks": {
     "PreToolUse": [
       {
@@ -257,5 +232,7 @@
         ]
       }
     ]
-  }
+  },
+  "preferredNotifChannel": "terminal_bell",
+  "defaultMode": "acceptEdits"
 }

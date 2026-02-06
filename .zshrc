@@ -95,7 +95,7 @@ export XDG_CONFIG_HOME=~/.config
 export NODE_PATH="/opt/homebrew/lib/node_modules"
 
 # ============================================================================
-# PATH設定
+# PATH設定（すべてのPATH追加をここに集約）
 # ============================================================================
 
 # pyenv（Pythonバージョン管理）
@@ -103,17 +103,15 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 
 # 開発ツール
-PATH=~/.console-ninja/.bin:$PATH                              # Console Ninja
-export PATH="/Users/nakayamaseiya/.codeium/windsurf/bin:$PATH"  # Windsurf
-export PATH="$PATH:/Users/nakayamaseiya/.lmstudio/bin"          # LM Studio CLI
+[[ -d "$HOME/.console-ninja/.bin" ]] && export PATH="$HOME/.console-ninja/.bin:$PATH"          # Console Ninja
+[[ -d "$HOME/.codeium/windsurf/bin" ]] && export PATH="$HOME/.codeium/windsurf/bin:$PATH"      # Windsurf
+[[ -d "$HOME/.lmstudio/bin" ]] && export PATH="$PATH:$HOME/.lmstudio/bin"                      # LM Studio CLI
 
-# コンテナ関連
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/nakayamaseiya/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+# コンテナ関連（Rancher Desktop）
+[[ -d "$HOME/.rd/bin" ]] && export PATH="$HOME/.rd/bin:$PATH"
 
 # その他
-. "$HOME/.local/bin/env"
+[[ -f "$HOME/.local/bin/env" ]] && . "$HOME/.local/bin/env"
 
 # ============================================================================
 # 外部ツール初期化
@@ -303,7 +301,20 @@ zls() {
 # ------------------------------
 # VPN（vpnutil for Mac）
 # ------------------------------
+_check_vpn_deps() {
+  if ! command -v vpnutil &>/dev/null; then
+    echo "Error: vpnutil がインストールされていません (brew install vpnutil)" >&2
+    return 1
+  fi
+  if ! command -v jq &>/dev/null; then
+    echo "Error: jq がインストールされていません (brew install jq)" >&2
+    return 1
+  fi
+  return 0
+}
+
 check_vpn_status() {
+  _check_vpn_deps || return 1
   vpn_data=$(vpnutil list)
   connected_vpns=$(echo "$vpn_data" | jq -r '.VPNs[] | select(.status == "Connected") | "\(.name) (\(.status))"')
 
@@ -316,6 +327,11 @@ check_vpn_status() {
 }
 
 vpn_connect_with_fzf() {
+  _check_vpn_deps || return 1
+  if ! command -v fzf &>/dev/null; then
+    echo "Error: fzf がインストールされていません (brew install fzf)" >&2
+    return 1
+  fi
   vpn_data=$(vpnutil list)
   selected_vpn=$(echo "$vpn_data" | jq -r '.VPNs[] | "\(.name) (\(.status))"' | fzf --prompt="choose a vpn: ")
 
@@ -330,6 +346,7 @@ vpn_connect_with_fzf() {
 }
 
 vpn_disconnect_if_connected() {
+  _check_vpn_deps || return 1
   vpn_data=$(vpnutil list)
   connected_vpns=$(echo "$vpn_data" | jq -r '.VPNs[] | select(.status == "Connected") | .name')
 
@@ -351,6 +368,13 @@ vpn_disconnect_if_connected() {
 # gibo（gitignoreボイラープレート）
 # ------------------------------
 create_gitignore() {
+    for cmd in gibo fzf bat; do
+        if ! command -v "$cmd" &>/dev/null; then
+            echo "Error: $cmd がインストールされていません (brew install $cmd)" >&2
+            return 1
+        fi
+    done
+
     local input_file="$1"
 
     if [[ -z "$input_file" ]]; then

@@ -25,8 +25,13 @@ matches_deny_pattern() {
   cmd="${cmd#"${cmd%%[![:space:]]*}"}" # 先頭の空白を削除
   cmd="${cmd%"${cmd##*[![:space:]]}"}" # 末尾の空白を削除
 
+  # Claude Code形式: パターン内の ":" をスペースに変換してマッチング
+  # 例: "sudo:*" → "sudo *"（sudoに続く任意の引数にマッチ）
+  local converted_pattern="${pattern//:/ }"
+
   # glob パターンマッチング（ワイルドカード対応）
-  [[ "$cmd" == $pattern ]]
+  # 元のパターンと変換後パターンの両方でマッチを試行
+  [[ "$cmd" == $pattern ]] || [[ "$cmd" == $converted_pattern ]]
 }
 
 # まずコマンド全体をチェック
