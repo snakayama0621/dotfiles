@@ -233,6 +233,8 @@
       }
     ]
   },
+  "skipDangerousModePermissionPrompt": true,
   "preferredNotifChannel": "terminal_bell",
-  "defaultMode": "acceptEdits"
+  "defaultMode": "acceptEdits",
+  "language": "日本語で回答してください。許可を求める際は、なぜその操作が必要か理由も一緒に説明してください。"
 }

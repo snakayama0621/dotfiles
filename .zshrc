@@ -411,3 +411,12 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 # CodeWhisperer post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/nakayamaseiya/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/nakayamaseiya/.lmstudio/bin"
+# End of LM Studio CLI section
+
