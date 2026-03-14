@@ -53,6 +53,11 @@
 
 [diff]
     colorMoved = default       # 移動した行を色分け表示
-[user]
-	name = TetraTechAi
-	email = tetoran@tetoran.com
+
+# ----------------------------------------------------------------------------
+# ローカル設定の読み込み（user.name, user.email等）
+# ----------------------------------------------------------------------------
+# ~/.gitconfig.local が存在する場合のみ読み込まれる
+
+[include]
+    path = ~/.gitconfig.local

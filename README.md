@@ -7,7 +7,8 @@
 | ファイル/ディレクトリ | 説明 | リンク先 | 詳細 |
 |-------------------|------|----------|------|
 | `.zshrc` | Zsh設定 | `~/.zshrc` | - |
-| `.gitconfig` | Git設定（delta含む） | `~/.gitconfig` | - |
+| `.gitconfig` | Git設定（delta含む。ユーザー情報は除く） | `~/.gitconfig` | - |
+| `.gitconfig.local.example` | Git ローカル設定テンプレート（ユーザー情報） | `~/.gitconfig.local` | セットアップ時に自動生成 |
 | `.tmux.conf` | Tmux設定 | `~/.tmux.conf` | - |
 | `starship.toml` | Starshipプロンプト設定 | `~/.config/starship.toml` | - |
 | `nvim/` | Neovim設定 | `~/.config/nvim` | [README](nvim/README.md) |
@@ -18,8 +19,10 @@
 | `aerospace/` | Aerospaceウィンドウマネージャー設定 | `~/.config/aerospace` | [README](aerospace/README.md) |
 | `borders/` | Bordersウィンドウボーダー設定 | `~/.config/borders` | [README](borders/README.md) |
 | `sketchybar/` | Sketchybarステータスバー設定 | `~/.config/sketchybar` | [README](sketchybar/README.md) |
-| `commitlint.config.js` | コミットメッセージ検証設定 | `~/commitlint.config.js` | - |
+| `.claude/` | Claude Code設定（権限・フック・スクリプト） | `~/.claude/` | - |
+| `commitlint.config.js` | コミットメッセージ検証設定（cz-git） | `~/commitlint.config.js` | - |
 | `Brewfile` | Homebrewパッケージ管理 | - | - |
+| `tests/` | セットアップスクリプトのテスト | - | - |
 
 ## 必要要件
 
@@ -63,7 +66,28 @@ cd ~/dotfiles
 ./setup.sh -l
 ```
 
-### 3. 設定の反映
+### 3. Git ローカル設定の確認
+
+セットアップ時に `setup_gitconfig_local()` が実行され、以下のいずれかが行われます：
+
+- **～/.gitconfig.local が存在しない場合** - ユーザー名とメールアドレスを対話的に入力するよう促されます
+- **既に存在する場合** - スキップされます
+
+手動で設定を変更したい場合：
+
+```bash
+# テンプレートから作成
+cp .gitconfig.local.example ~/.gitconfig.local
+
+# エディタで編集
+vim ~/.gitconfig.local
+```
+
+**構成について：**
+- `.gitconfig` - 共有設定（aliases, delta設定など）
+- `.gitconfig.local` - ローカル設定（user.name, user.email）、`.gitignore` で追跡除外
+
+### 4. 設定の反映
 
 ```bash
 source ~/.zshrc
