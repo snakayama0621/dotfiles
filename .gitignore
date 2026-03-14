@@ -37,5 +37,5 @@ yazi/*-[0-9]*
 
 .czrc
 
-# Git config (contains local settings)
-.gitconfig
+# Git local config (contains user-specific settings)
+.gitconfig.local

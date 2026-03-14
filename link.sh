@@ -140,6 +140,53 @@ create_link() {
   fi
 }
 
+# .gitconfig.local セットアップ関数
+setup_gitconfig_local() {
+  local local_config="$HOME/.gitconfig.local"
+  local example_config="$DOTFILE_DIR/.gitconfig.local.example"
+
+  if [ -f "$local_config" ]; then
+    log_info "Git local config already exists: $local_config"
+    return 0
+  fi
+
+  if [ ! -f "$example_config" ]; then
+    log_warning "Example config not found: $example_config"
+    return 1
+  fi
+
+  if [ "$DRY_RUN" = true ]; then
+    log_info "[DRY-RUN] Would create $local_config from example and prompt for git user info"
+    return 0
+  fi
+
+  log_info "Setting up git local config..."
+  echo ""
+
+  # ユーザーに名前とメールアドレスを入力してもらう
+  read -rp "Git user.name: " git_name
+  read -rp "Git user.email: " git_email
+
+  # 改行・制御文字のバリデーション
+  if printf '%s' "$git_name" | grep -qP '[\x00-\x1f]' || printf '%s' "$git_email" | grep -qP '[\x00-\x1f]'; then
+    log_error "Name and email must not contain control characters."
+    return 1
+  fi
+
+  if [ -z "$git_name" ] || [ -z "$git_email" ]; then
+    log_warning "Name or email is empty. Copying example file as-is."
+    log_warning "Please edit $local_config manually."
+    cp "$example_config" "$local_config"
+  else
+    cat > "$local_config" << EOF
+[user]
+    name = $git_name
+    email = $git_email
+EOF
+    log_success "Created $local_config with your git user info"
+  fi
+}
+
 # 使用方法を表示
 show_usage() {
   cat << EOF
@@ -190,6 +237,10 @@ if [ "$DRY_RUN" = true ]; then
 fi
 
 log_info "Dotfile directory: $DOTFILE_DIR"
+echo ""
+
+# .gitconfig.local のセットアップ（失敗してもリンク作成は続行）
+setup_gitconfig_local || log_warning "Git local config setup skipped. Create ~/.gitconfig.local manually."
 echo ""
 
 # リンク作成ループ
