@@ -145,6 +145,31 @@ run_sketchybar_setup() {
   log_success "sketchybar setup completed"
 }
 
+# npmグローバルパッケージをインストール
+run_npm_globals() {
+  log_step "Installing npm global packages..."
+
+  if ! command -v npm &> /dev/null; then
+    log_warning "npm not found, skipping global package installation"
+    return 0
+  fi
+
+  local packages=("czg")
+
+  for pkg in "${packages[@]}"; do
+    if npm list -g "$pkg" &> /dev/null; then
+      log_info "$pkg is already installed"
+    else
+      if [ "$DRY_RUN" = true ]; then
+        log_warning "[DRY-RUN] Would run: npm install -g $pkg"
+      else
+        npm install -g "$pkg"
+        log_success "$pkg installed"
+      fi
+    fi
+  done
+}
+
 # link.shを実行
 run_link_script() {
   log_step "Creating symbolic links..."
@@ -209,6 +234,8 @@ elif [ "$BREW_ONLY" = true ]; then
 else
   # フルセットアップ
   run_brew_bundle
+  echo ""
+  run_npm_globals
   echo ""
   run_link_script
   echo ""
