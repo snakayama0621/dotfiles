@@ -40,7 +40,11 @@ sketchybar/
 
 ## セットアップ
 
-### 依存パッケージ
+sketchybarのセットアップは `setup.sh` 実行時に自動的に行われます：
+- SbarLua（Luaバインディング）のインストール
+- 必要なフォントのダウンロード
+
+### 依存パッケージ（Brewfileで自動インストール）
 
 ```bash
 brew install lua
@@ -48,16 +52,16 @@ brew install switchaudio-osx    # オーディオ切替
 brew install nowplaying-cli     # メディア情報
 ```
 
-### SbarLua（Luaバインディング）
+### 手動セットアップ（オプション）
 
+SbarLua を手動でインストール:
 ```bash
 git clone https://github.com/FelixKratz/SbarLua.git /tmp/SbarLua
 cd /tmp/SbarLua && make install
 rm -rf /tmp/SbarLua
 ```
 
-### フォント
-
+フォントを手動でダウンロード:
 ```bash
 # sketchybar-app-fontをダウンロード
 curl -sL https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.5/sketchybar-app-font.ttf \
