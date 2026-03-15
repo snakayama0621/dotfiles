@@ -247,5 +247,10 @@
   "defaultMode": "acceptEdits",
   "enabledPlugins": {
     "everything-claude-code@everything-claude-code": true
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0
   }
 }
