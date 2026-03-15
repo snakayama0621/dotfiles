@@ -1,5 +1,5 @@
 add_newline = false
-command_timeout = 1000
+command_timeout = 2000
 
 [character]
 error_symbol = "[❯](bold red)"
@@ -31,7 +31,6 @@ format = "[$symbol($version)]($style) "
 [python]
 symbol = " "
 format = "[$symbol($version)]($style) "
-command_timeout = 2000
 
 [rust]
 symbol = " "
