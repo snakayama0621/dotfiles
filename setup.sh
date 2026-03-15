@@ -96,8 +96,13 @@ run_brew_bundle() {
     echo "  ..."
   else
     cd "$SCRIPT_DIR"
-    brew bundle --file=Brewfile
-    log_success "Homebrew packages installed"
+    # Allow individual package failures; don't abort the whole setup.
+    if brew bundle --file=Brewfile; then
+      log_success "Homebrew packages installed"
+    else
+      log_warning "Some Homebrew packages failed to install (continuing setup)"
+      log_info "  To retry: ./setup.sh -b"
+    fi
   fi
 }
 
