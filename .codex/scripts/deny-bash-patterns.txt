@@ -1,0 +1,25 @@
+rm -rf /
+rm -rf /*
+rm -rf ~
+rm -rf ~/*
+sudo rm:*
+chmod 777:*
+sudo:*
+su:*
+git config --global:*
+gh repo delete:*
+gh auth:*
+terraform destroy:*
+aws iam:*
+aws sts:*
+docker system prune:*
+shutdown:*
+reboot:*
+systemctl:*
+ssh:*
+scp:*
+rsync:*
+export AWS_*
+export *SECRET*
+export *TOKEN*
+export *KEY*
