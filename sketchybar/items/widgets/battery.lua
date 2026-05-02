@@ -102,15 +102,6 @@ battery:subscribe("mouse.clicked", function(env)
 	end
 end)
 
-battery:subscribe("mouse.entered", function(env)
-	interrupt = interrupt + 1
-	animate_detail(true)
-end)
-
-battery:subscribe("mouse.exited", function(env)
-	animate_detail(false)
-end)
-
 battery:subscribe("mouse.exited.global", function(env)
 	battery:set({ popup = { drawing = false } })
 end)

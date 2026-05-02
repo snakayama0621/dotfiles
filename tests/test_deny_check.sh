@@ -7,12 +7,14 @@
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-DENY_CHECK="$REPO_DIR/.claude/scripts/deny-check.sh"
+DENY_CHECKS=(
+  "$REPO_DIR/.claude/scripts/deny-check.sh"
+  "$REPO_DIR/.codex/scripts/deny-check.sh"
+)
 
-# テスト用の一時ディレクトリ（$HOME/.claude/settings.json の構造を再現）
+# テスト用の一時ディレクトリ
 TEST_HOME=$(mktemp -d)
-TEST_SETTINGS="$TEST_HOME/.claude/settings.json"
-mkdir -p "$TEST_HOME/.claude"
+trap 'rm -rf "$TEST_HOME"' EXIT
 
 # カウンター
 PASS=0
@@ -28,111 +30,64 @@ bold() { printf "\033[1m%s\033[0m\n" "$1"; }
 # テストヘルパー
 # ----------------------------------------------------------------------------
 
-setup_settings() {
-  cat > "$TEST_SETTINGS" << 'SETTINGS'
-{
-  "permissions": {
-    "deny": [
-      "Bash(rm -rf /)",
-      "Bash(rm -rf /*)",
-      "Bash(rm -rf ~)",
-      "Bash(sudo:*)",
-      "Bash(chmod 777:*)",
-      "Bash(export AWS_*)",
-      "Bash(export *SECRET*)",
-      "Bash(ssh:*)"
-    ]
-  }
-}
-SETTINGS
-}
-
 # deny-check.sh を実行するヘルパー
-# $HOME/.claude/settings.json の代わりにテスト用設定を使用
 run_deny_check() {
-  local command="$1"
-  local tool_name="${2:-Bash}"
+  local deny_check="$1"
+  local command="$2"
+  local tool_name="${3:-Bash}"
   local input
   input=$(jq -n --arg cmd "$command" --arg tool "$tool_name" \
     '{tool_input: {command: $cmd}, tool_name: $tool}')
 
-  # HOME をテスト用ディレクトリに差し替えて実行
-  echo "$input" | HOME="$TEST_HOME" bash "$DENY_CHECK" 2>/dev/null
+  echo "$input" | HOME="$TEST_HOME" bash "$deny_check" 2>/dev/null
   return $?
 }
 
-# テストアサーション: コマンドが許可されることを検証
-assert_allowed() {
+assert_exit_code() {
   local description="$1"
-  local command="$2"
-  TOTAL=$((TOTAL + 1))
+  local expected="$2"
+  local command="$3"
+  local tool_name="${4:-Bash}"
+  local deny_check
 
-  run_deny_check "$command"
-  local exit_code=$?
+  for deny_check in "${DENY_CHECKS[@]}"; do
+    local label
+    local exit_code
+    label=$(basename "$(dirname "$(dirname "$deny_check")")")
+    TOTAL=$((TOTAL + 1))
 
-  if [ $exit_code -eq 0 ]; then
-    green "  PASS: $description"
-    PASS=$((PASS + 1))
-  else
-    red "  FAIL: $description (expected: allowed, got: exit code $exit_code)"
-    FAIL=$((FAIL + 1))
-  fi
+    run_deny_check "$deny_check" "$command" "$tool_name"
+    exit_code=$?
+
+    if [ "$exit_code" -eq "$expected" ]; then
+      green "  PASS: [$label] $description"
+      PASS=$((PASS + 1))
+    else
+      red "  FAIL: [$label] $description (expected: $expected, got: $exit_code)"
+      FAIL=$((FAIL + 1))
+    fi
+  done
 }
 
-# テストアサーション: コマンドが拒否されることを検証
-assert_denied() {
-  local description="$1"
-  local command="$2"
-  TOTAL=$((TOTAL + 1))
-
-  run_deny_check "$command"
-  local exit_code=$?
-
-  if [ $exit_code -eq 2 ]; then
-    green "  PASS: $description"
-    PASS=$((PASS + 1))
-  else
-    red "  FAIL: $description (expected: denied(2), got: exit code $exit_code)"
-    FAIL=$((FAIL + 1))
-  fi
-}
-
-# テストアサーション: Bash以外のツールはスキップされることを検証
-assert_skipped() {
-  local description="$1"
-  local command="$2"
-  local tool_name="$3"
-  TOTAL=$((TOTAL + 1))
-
-  run_deny_check "$command" "$tool_name"
-  local exit_code=$?
-
-  if [ $exit_code -eq 0 ]; then
-    green "  PASS: $description"
-    PASS=$((PASS + 1))
-  else
-    red "  FAIL: $description (expected: skipped(0), got: exit code $exit_code)"
-    FAIL=$((FAIL + 1))
-  fi
-}
+assert_allowed() { assert_exit_code "$1" 0 "$2"; }
+assert_denied() { assert_exit_code "$1" 2 "$2"; }
+assert_skipped() { assert_exit_code "$1" 0 "$2" "$3"; }
 
 # ----------------------------------------------------------------------------
 # テスト前の検証
 # ----------------------------------------------------------------------------
-
-# 前提条件チェック
-if [ ! -f "$DENY_CHECK" ]; then
-  red "Error: deny-check.sh が見つかりません: $DENY_CHECK"
-  exit 1
-fi
 
 if ! command -v jq &>/dev/null; then
   red "Error: jq がインストールされていません"
   exit 1
 fi
 
-# テスト用設定ファイルをセットアップ
-setup_settings
+for deny_check in "${DENY_CHECKS[@]}"; do
+  if [ ! -f "$deny_check" ]; then
+    red "Error: deny-check.sh が見つかりません: $deny_check"
+    exit 1
+  fi
+done
 
 # ----------------------------------------------------------------------------
 # テスト実行
@@ -204,9 +159,6 @@ echo ""
 
 bold "=== テスト結果 ==="
 echo "合計: $TOTAL  成功: $PASS  失敗: $FAIL"
-
-# クリーンアップ
-rm -rf "$TEST_HOME"
 
 if [ $FAIL -eq 0 ]; then
   green "All tests passed!"

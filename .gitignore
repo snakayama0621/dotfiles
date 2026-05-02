@@ -35,6 +35,9 @@ yazi/*-[0-9]*
 *.swo
 *~
 
+# Node.js
+node_modules/
+
 .czrc
 
 # Git local config (contains user-specific settings)

@@ -1,5 +1,8 @@
 #!/bin/bash
 
-/usr/bin/afplay /System/Library/Sounds/Ping.aiff >/dev/null 2>&1 || true
-osascript -e 'display notification "タスクが完了しました" with title "Codex" sound name "Ping"' >/dev/null 2>&1 || true
-printf '\a' > /dev/tty 2>/dev/null || true
+set -euo pipefail
+
+script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
+repo_root=$(CDPATH= cd -- "$script_dir/../.." && pwd -P)
+
+exec /bin/bash "$repo_root/scripts/notify.sh" "Codex" "タスクが完了しました"
