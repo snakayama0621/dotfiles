@@ -1,0 +1,41 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/bin/bash \"$(git rev-parse --show-toplevel)/.codex/scripts/deny-check.sh\"",
+            "timeout": 30,
+            "statusMessage": "Checking Bash command"
+          }
+        ],
+        "matcher": "Bash"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/bin/bash \"$(git rev-parse --show-toplevel)/.codex/scripts/format-edited-files.sh\"",
+            "timeout": 120,
+            "statusMessage": "Formatting edited files"
+          }
+        ],
+        "matcher": "Edit|Write|MultiEdit"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/bin/bash \"$(git rev-parse --show-toplevel)/.codex/scripts/completion-notification.sh\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

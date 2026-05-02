@@ -1,0 +1,20 @@
+{
+  "name": "dotfiles-migrated-plugins",
+  "interface": {
+    "displayName": "Dotfiles Migrated Plugins"
+  },
+  "plugins": [
+    {
+      "name": "ecc",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/affaan-m/everything-claude-code.git"
+      },
+      "policy": {
+        "installation": "INSTALLED_BY_DEFAULT",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
