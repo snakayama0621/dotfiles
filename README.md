@@ -2,6 +2,13 @@
 
 個人的な開発環境設定ファイルの管理リポジトリです。
 
+## リポジトリの役割
+
+- macOS の開発環境を再現するための dotfiles を管理します
+- `setup.sh` で Homebrew パッケージ、npm グローバルパッケージ、各種シンボリックリンクをまとめてセットアップします
+- 個人情報を含む Git 設定は `.gitconfig.local` に分離し、リポジトリでは `.gitconfig.local.example` だけを管理します
+- Codex / Claude のフックや許可設定も含め、AI コーディング環境の共通設定を管理します
+
 ## 含まれる設定
 
 | ファイル/ディレクトリ | 説明 | リンク先 | 詳細 |
@@ -19,12 +26,22 @@
 | `aerospace/` | Aerospaceウィンドウマネージャー設定 | `~/.config/aerospace` | [README](aerospace/README.md) |
 | `borders/` | Bordersウィンドウボーダー設定 | `~/.config/borders` | [README](borders/README.md) |
 | `sketchybar/` | Sketchybarステータスバー設定 | `~/.config/sketchybar` | [README](sketchybar/README.md) |
+| `htop/` | htopプロセスビューア設定 | `~/.config/htop` | - |
+| `neofetch/` | Neofetchシステム情報表示設定 | `~/.config/neofetch` | - |
 | `.claude/` | Claude Code設定（権限・フック・スクリプト） | `~/.claude/` | - |
 | `.codex/` | Codex設定（フック・スクリプト） | `~/.codex/` | `config.toml` は既存グローバル設定へ必要項目のみ反映 |
 | `.agents/plugins/marketplace.json` | Codexプラグインマーケットプレイス | `~/.agents/plugins/marketplace.json` | - |
 | `commitlint.config.js` | コミットメッセージ検証設定（cz-git） | `~/commitlint.config.js` | - |
 | `Brewfile` | Homebrewパッケージ管理 | - | - |
+| `scripts/` | Claude / Codex フック共通処理 | - | - |
 | `tests/` | セットアップスクリプトのテスト | - | - |
+
+## 管理方針
+
+- 設定ファイルは基本的にこのリポジトリで管理し、`link.sh` でホームディレクトリ配下へシンボリックリンクします
+- マシン固有・個人情報を含む設定は、サンプルファイルだけを管理して実体は Git 管理外に置きます
+- `node_modules/` は管理対象にせず、`package-lock.json` と `package.json` から再現します
+- `setup.sh -d` と `link.sh -d` で、実際に変更する前の dry-run を確認できます
 
 ## 必要要件
 

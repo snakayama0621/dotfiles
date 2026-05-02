@@ -226,10 +226,12 @@ if [ "$DRY_RUN" = true ]; then
   echo ""
 fi
 
-# Homebrewの確認
-check_homebrew
-log_success "Homebrew found: $(brew --version | head -1)"
-echo ""
+# Homebrewの確認（リンクのみの場合は不要）
+if [ "$LINK_ONLY" != true ]; then
+  check_homebrew
+  log_success "Homebrew found: $(brew --version | head -1)"
+  echo ""
+fi
 
 # 実行
 if [ "$LINK_ONLY" = true ]; then

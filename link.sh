@@ -37,6 +37,8 @@ LINKS=(
   "$HOME/.config/aerospace:$DOTFILE_DIR/aerospace"
   "$HOME/.config/borders:$DOTFILE_DIR/borders"
   "$HOME/.config/sketchybar:$DOTFILE_DIR/sketchybar"
+  "$HOME/.config/htop:$DOTFILE_DIR/htop"
+  "$HOME/.config/neofetch:$DOTFILE_DIR/neofetch"
   "$HOME/.claude/settings.json:$DOTFILE_DIR/.claude/settings.json"
   "$HOME/.claude/CLAUDE.md:$DOTFILE_DIR/.claude/CLAUDE.md"
   "$HOME/.claude/scripts:$DOTFILE_DIR/.claude/scripts"

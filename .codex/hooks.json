@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/bin/bash \"$(git rev-parse --show-toplevel)/.codex/scripts/deny-check.sh\"",
+            "command": "/bin/bash \"$HOME/.codex/scripts/deny-check.sh\"",
             "timeout": 30,
             "statusMessage": "Checking Bash command"
           }
@@ -18,7 +18,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/bin/bash \"$(git rev-parse --show-toplevel)/.codex/scripts/format-edited-files.sh\"",
+            "command": "/bin/bash \"$HOME/.codex/scripts/format-edited-files.sh\"",
             "timeout": 120,
             "statusMessage": "Formatting edited files"
           }
@@ -31,7 +31,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/bin/bash \"$(git rev-parse --show-toplevel)/.codex/scripts/completion-notification.sh\"",
+            "command": "/bin/bash \"$HOME/.codex/scripts/completion-notification.sh\"",
             "timeout": 30
           }
         ]
