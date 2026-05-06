@@ -44,7 +44,6 @@ LINKS=(
   "$HOME/.claude/scripts:$DOTFILE_DIR/.claude/scripts"
   "$HOME/.codex/hooks.json:$DOTFILE_DIR/.codex/hooks.json"
   "$HOME/.codex/scripts:$DOTFILE_DIR/.codex/scripts"
-  "$HOME/.agents/plugins/marketplace.json:$DOTFILE_DIR/.agents/plugins/marketplace.json"
   "$HOME/.config/lazygit:$DOTFILE_DIR/lazygit"
   "$HOME/commitlint.config.js:$DOTFILE_DIR/commitlint.config.js"
 )
