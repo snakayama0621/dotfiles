@@ -420,3 +420,6 @@ export PATH="/Users/nakayamaseiya/.rd/bin:$PATH"
 export PATH="$PATH:/Users/nakayamaseiya/.lmstudio/bin"
 # End of LM Studio CLI section
 
+# >>> AGI Cockpit >>>
+export PATH="$HOME/.agi-tools/data/cockpit/master/bin:$PATH"
+# <<< AGI Cockpit <<<
