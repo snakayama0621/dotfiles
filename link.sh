@@ -42,6 +42,7 @@ LINKS=(
   "$HOME/.claude/settings.json:$DOTFILE_DIR/.claude/settings.json"
   "$HOME/.claude/CLAUDE.md:$DOTFILE_DIR/.claude/CLAUDE.md"
   "$HOME/.claude/scripts:$DOTFILE_DIR/.claude/scripts"
+  "$HOME/.codex/AGENTS.md:$DOTFILE_DIR/.codex/AGENTS.md"
   "$HOME/.codex/hooks.json:$DOTFILE_DIR/.codex/hooks.json"
   "$HOME/.codex/scripts:$DOTFILE_DIR/.codex/scripts"
   "$HOME/.config/lazygit:$DOTFILE_DIR/lazygit"
