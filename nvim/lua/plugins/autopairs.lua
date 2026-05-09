@@ -35,18 +35,5 @@ return {
     local cmp_autopairs = require("nvim-autopairs.completion.cmp")
     local cmp = require("cmp")
     cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-
-    -- Tabで閉じ括弧を抜ける
-    vim.keymap.set("i", "<Tab>", function()
-      local col = vim.fn.col(".") - 1
-      local char = vim.fn.getline("."):sub(col + 1, col + 1)
-      if char:match('[%)%]%}\'"`]') then
-        return "<Right>"
-      elseif vim.fn.pumvisible() == 1 then
-        return "<C-n>"  -- 補完メニューが開いている場合は次の候補
-      else
-        return "<Tab>"
-      end
-    end, { expr = true, noremap = true, desc = "Tab: 閉じ括弧を抜ける/補完選択" })
   end,
 }

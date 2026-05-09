@@ -91,9 +91,9 @@
 | `gD` | N | 宣言へジャンプ |
 | `gr` | N | 参照一覧 |
 | `gi` | N | 実装へジャンプ |
-| `gt` | N | 型定義へジャンプ |
+| `<leader>gt` | N | 型定義へジャンプ |
 | `K` | N | ホバー情報表示 |
-| `<C-k>` | N | シグネチャヘルプ |
+| `<leader>k` | N | シグネチャヘルプ |
 | `<leader>ca` | N | コードアクション |
 | `<leader>rn` | N | リネーム |
 | `<leader>fm` | N | フォーマット |
@@ -218,7 +218,7 @@
 
 | キー | モード | 説明 |
 |------|--------|------|
-| `<Tab>` | I | 次の候補 / スニペット展開 |
+| `<Tab>` | I | 次の候補 / スニペット展開 / 閉じ括弧を抜ける |
 | `<S-Tab>` | I | 前の候補 |
 | `<CR>` | I | 候補を確定 |
 | `<C-Space>` | I | 補完を開始 |
@@ -255,7 +255,8 @@
 | PHP | php_cs_fixer |
 | C/C++ | clang-format |
 | Shell | shfmt |
-| JSON/YAML/Markdown | prettierd, prettier |
+| JSON/YAML | prettierd, prettier |
+| Markdown | prettierd, prettier（手動実行） |
 
 ---
 

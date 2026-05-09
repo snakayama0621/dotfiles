@@ -24,6 +24,20 @@ return {
     local cmp = require('cmp')
     local luasnip = require('luasnip')
 
+    local function jump_over_closing_pair()
+      if vim.api.nvim_get_mode().mode ~= 'i' then
+        return false
+      end
+      local col = vim.fn.col('.')
+      local char = vim.fn.getline('.'):sub(col, col)
+      if char:match('[%)%]%}\'"`]') then
+        local right = vim.api.nvim_replace_termcodes('<Right>', true, false, true)
+        vim.api.nvim_feedkeys(right, 'n', true)
+        return true
+      end
+      return false
+    end
+
     cmp.setup({
       snippet = {
         expand = function(args)
@@ -47,6 +61,8 @@ return {
             cmp.select_next_item()
           elseif luasnip.expand_or_jumpable() then
             luasnip.expand_or_jump()
+          elseif jump_over_closing_pair() then
+            return
           else
             fallback()
           end

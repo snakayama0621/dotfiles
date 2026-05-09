@@ -95,6 +95,9 @@ autocmd('BufWritePre', {
   group = augroup('trim_whitespace', { clear = true }),
   pattern = '*',
   callback = function()
+    if vim.bo.filetype == 'markdown' then
+      return
+    end
     local save_cursor = vim.fn.getpos('.')
     local old_query = vim.fn.getreg('/')
     vim.cmd([[%s/\s\+$//e]])

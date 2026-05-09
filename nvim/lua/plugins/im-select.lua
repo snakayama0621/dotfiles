@@ -7,9 +7,14 @@ return {
   "keaising/im-select.nvim",
   event = { "InsertEnter", "CmdlineEnter" },
   config = function()
+    local im_select = vim.fn.exepath("im-select")
+    if im_select == "" then
+      im_select = "im-select"
+    end
+
     require("im_select").setup({
       -- im-selectコマンドのパス
-      default_command = "/opt/homebrew/bin/im-select",
+      default_command = im_select,
 
       -- macOSの英数入力ソース
       default_im_select = "com.apple.keylayout.ABC",
@@ -21,7 +26,7 @@ return {
       set_previous_events = { "InsertEnter" },
 
       -- バイナリがない場合のエラー抑制
-      keep_quiet_on_no_binary = false,
+      keep_quiet_on_no_binary = true,
     })
   end,
 }
