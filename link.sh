@@ -43,7 +43,7 @@ LINKS=(
   "$HOME/.claude/CLAUDE.md:$DOTFILE_DIR/.claude/CLAUDE.md"
   "$HOME/.claude/scripts:$DOTFILE_DIR/.claude/scripts"
   "$HOME/.codex/AGENTS.md:$DOTFILE_DIR/.codex/AGENTS.md"
-  "$HOME/.codex/hooks.json:$DOTFILE_DIR/.codex/hooks.json"
+  "$HOME/.codex/hooks.json:$DOTFILE_DIR/.codex/global-hooks.json"
   "$HOME/.codex/scripts:$DOTFILE_DIR/.codex/scripts"
   "$HOME/.config/lazygit:$DOTFILE_DIR/lazygit"
   "$HOME/commitlint.config.js:$DOTFILE_DIR/commitlint.config.js"
@@ -206,7 +206,7 @@ setup_codex_config() {
 
   if [ "$DRY_RUN" = true ]; then
     if [ -f "$codex_config" ]; then
-      log_info "[DRY-RUN] Would ensure [features].codex_hooks = true in $codex_config"
+      log_info "[DRY-RUN] Would ensure [features].hooks = true in $codex_config"
     else
       log_info "[DRY-RUN] Would create $codex_config from $source_config"
     fi
@@ -223,43 +223,40 @@ setup_codex_config() {
 
   local temp_file="${codex_config}.tmp.$$"
 
-  if grep -q '^[[:space:]]*codex_hooks[[:space:]]*=' "$codex_config"; then
-    if grep -q '^[[:space:]]*codex_hooks[[:space:]]*=[[:space:]]*true[[:space:]]*$' "$codex_config"; then
-      log_info "Codex hooks feature already enabled: $codex_config"
-      return 0
-    fi
-
-    awk '
-      /^[[:space:]]*codex_hooks[[:space:]]*=/ {
-        print "codex_hooks = true"
-        next
-      }
-      { print }
-    ' "$codex_config" > "$temp_file"
-    mv "$temp_file" "$codex_config"
-    log_success "Enabled Codex hooks in $codex_config"
-    return 0
-  fi
-
   if grep -q '^\[features\]' "$codex_config"; then
     awk '
-      BEGIN { inserted = 0 }
-      /^\[features\]$/ {
-        print
-        if (!inserted) {
-          print "codex_hooks = true"
-          inserted = 1
+      BEGIN { in_features = 0; has_hooks = 0 }
+      /^\[/ {
+        if (in_features && !has_hooks) {
+          print "hooks = true"
+          has_hooks = 1
         }
+        in_features = 0
+      }
+      /^\[features\]$/ {
+        in_features = 1
+        print
+        next
+      }
+      in_features && /^[[:space:]]*codex_hooks[[:space:]]*=/ { next }
+      in_features && /^[[:space:]]*hooks[[:space:]]*=/ {
+        print "hooks = true"
+        has_hooks = 1
         next
       }
       { print }
+      END {
+        if (in_features && !has_hooks) {
+          print "hooks = true"
+        }
+      }
     ' "$codex_config" > "$temp_file"
   else
     cp "$codex_config" "$temp_file"
     {
       echo ""
       echo "[features]"
-      echo "codex_hooks = true"
+      echo "hooks = true"
     } >> "$temp_file"
   fi
 
@@ -324,7 +321,7 @@ setup_gitconfig_local || log_warning "Git local config setup skipped. Create ~/.
 echo ""
 
 # Codex config.toml は既存の個人設定を保護しながら必要項目だけ反映
-setup_codex_config || log_warning "Codex config setup skipped. Enable [features].codex_hooks manually."
+setup_codex_config || log_warning "Codex config setup skipped. Enable [features].hooks manually."
 echo ""
 
 # リンク作成ループ
