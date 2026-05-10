@@ -199,6 +199,15 @@
             "command": "~/.claude/scripts/deny-check.sh"
           }
         ]
+      },
+      {
+        "matcher": "AskUserQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "AGI_COCKPIT_HOOK=1; if [ -n \"$AGI_COCKPIT_STATUS_FILE\" ]; then mkdir -p \"$(dirname \"$AGI_COCKPIT_STATUS_FILE\")\"; TMP=\"${AGI_COCKPIT_STATUS_FILE}.tmp\"; if [ -f \"$AGI_COCKPIT_STATUS_FILE\" ]; then jq  '.status = \"waiting_confirmation\"' \"$AGI_COCKPIT_STATUS_FILE\" > \"$TMP\"; else jq -n  '.status = \"waiting_confirmation\"' > \"$TMP\"; fi; if [ -s \"$TMP\" ]; then mv \"$TMP\" \"$AGI_COCKPIT_STATUS_FILE\"; else rm -f \"$TMP\"; fi; fi"
+          }
+        ]
       }
     ],
     "PostToolUse": [
@@ -208,6 +217,15 @@
           {
             "type": "command",
             "command": "/bin/bash \"$HOME/.claude/scripts/format-edited-files.sh\""
+          }
+        ]
+      },
+      {
+        "matcher": "AskUserQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "AGI_COCKPIT_HOOK=1; if [ -n \"$AGI_COCKPIT_STATUS_FILE\" ]; then mkdir -p \"$(dirname \"$AGI_COCKPIT_STATUS_FILE\")\"; TMP=\"${AGI_COCKPIT_STATUS_FILE}.tmp\"; if [ -f \"$AGI_COCKPIT_STATUS_FILE\" ]; then jq  '.status = \"running\"' \"$AGI_COCKPIT_STATUS_FILE\" > \"$TMP\"; else jq -n  '.status = \"running\"' > \"$TMP\"; fi; if [ -s \"$TMP\" ]; then mv \"$TMP\" \"$AGI_COCKPIT_STATUS_FILE\"; else rm -f \"$TMP\"; fi; fi"
           }
         ]
       }
@@ -220,6 +238,15 @@
             "command": "~/.claude/scripts/completion-notification.sh"
           }
         ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "AGI_COCKPIT_HOOK=1; if [ -n \"$AGI_COCKPIT_STATUS_FILE\" ]; then mkdir -p \"$(dirname \"$AGI_COCKPIT_STATUS_FILE\")\"; TMP=\"${AGI_COCKPIT_STATUS_FILE}.tmp\"; if [ -f \"$AGI_COCKPIT_STATUS_FILE\" ]; then jq  '.status = \"waiting_confirmation\"' \"$AGI_COCKPIT_STATUS_FILE\" > \"$TMP\"; else jq -n  '.status = \"waiting_confirmation\"' > \"$TMP\"; fi; if [ -s \"$TMP\" ]; then mv \"$TMP\" \"$AGI_COCKPIT_STATUS_FILE\"; else rm -f \"$TMP\"; fi; fi"
+          }
+        ]
       }
     ],
     "Notification": [
@@ -228,6 +255,37 @@
           {
             "type": "command",
             "command": "~/.claude/scripts/notification.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "idle_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "AGI_COCKPIT_HOOK=1; if [ -n \"$AGI_COCKPIT_STATUS_FILE\" ]; then INPUT=$(cat); SID=$(printf \"%s\" \"$INPUT\" | jq -r '(.session_id // .sessionId // ((.transcript_path // .transcriptPath // \"\") | split(\"/\") | last | sub(\"\\\\.jsonl$\"; \"\"))) // empty' 2>/dev/null); if [ -z \"$SID\" ]; then SID=$(echo \"$CLAUDE_ENV_FILE\" | sed -n \"s|.*/session-env/\\([^/]*\\)/.*|\\1|p\"); fi; mkdir -p \"$(dirname \"$AGI_COCKPIT_STATUS_FILE\")\"; TMP=\"${AGI_COCKPIT_STATUS_FILE}.tmp\"; if [ -f \"$AGI_COCKPIT_STATUS_FILE\" ]; then jq --arg sid \"$SID\" '.status = \"waiting_confirmation\" | .sessionId = $sid' \"$AGI_COCKPIT_STATUS_FILE\" > \"$TMP\"; else jq -n --arg sid \"$SID\" '.status = \"waiting_confirmation\" | .sessionId = $sid' > \"$TMP\"; fi; if [ -s \"$TMP\" ]; then mv \"$TMP\" \"$AGI_COCKPIT_STATUS_FILE\"; else rm -f \"$TMP\"; fi; fi"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "AGI_COCKPIT_HOOK=1; if [ -n \"$AGI_COCKPIT_STATUS_FILE\" ]; then INPUT=$(cat); SID=$(printf \"%s\" \"$INPUT\" | jq -r '(.session_id // .sessionId // ((.transcript_path // .transcriptPath // \"\") | split(\"/\") | last | sub(\"\\\\.jsonl$\"; \"\"))) // empty' 2>/dev/null); if [ -z \"$SID\" ]; then SID=$(echo \"$CLAUDE_ENV_FILE\" | sed -n \"s|.*/session-env/\\([^/]*\\)/.*|\\1|p\"); fi; mkdir -p \"$(dirname \"$AGI_COCKPIT_STATUS_FILE\")\"; TMP=\"${AGI_COCKPIT_STATUS_FILE}.tmp\"; if [ -f \"$AGI_COCKPIT_STATUS_FILE\" ]; then jq --arg sid \"$SID\" '.sessionId = $sid' \"$AGI_COCKPIT_STATUS_FILE\" > \"$TMP\"; else jq -n --arg sid \"$SID\" '.sessionId = $sid' > \"$TMP\"; fi; if [ -s \"$TMP\" ]; then mv \"$TMP\" \"$AGI_COCKPIT_STATUS_FILE\"; else rm -f \"$TMP\"; fi; fi"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "AGI_COCKPIT_HOOK=1; if [ -n \"$AGI_COCKPIT_STATUS_FILE\" ]; then mkdir -p \"$(dirname \"$AGI_COCKPIT_STATUS_FILE\")\"; TMP=\"${AGI_COCKPIT_STATUS_FILE}.tmp\"; if [ -f \"$AGI_COCKPIT_STATUS_FILE\" ]; then jq  '.status = \"running\"' \"$AGI_COCKPIT_STATUS_FILE\" > \"$TMP\"; else jq -n  '.status = \"running\"' > \"$TMP\"; fi; if [ -s \"$TMP\" ]; then mv \"$TMP\" \"$AGI_COCKPIT_STATUS_FILE\"; else rm -f \"$TMP\"; fi; fi"
           }
         ]
       }
