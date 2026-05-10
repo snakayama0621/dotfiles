@@ -11,7 +11,7 @@ return {
     {
       '<leader>fm',
       function()
-        require('conform').format({ async = true, lsp_fallback = true })
+        require('conform').format({ async = true, lsp_format = 'fallback' })
       end,
       mode = { 'n', 'v' },
       desc = 'フォーマット実行',
@@ -72,7 +72,7 @@ return {
     -- 保存時の自動フォーマット設定
     format_on_save = function(bufnr)
       -- 特定のファイルタイプでは保存時フォーマットを無効化
-      local ignore_filetypes = { 'sql', 'java' }
+      local ignore_filetypes = { 'sql', 'java', 'markdown' }
       if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
         return
       end
@@ -83,7 +83,7 @@ return {
       end
       return {
         timeout_ms = 3000,
-        lsp_fallback = true,
+        lsp_format = 'fallback',
       }
     end,
 

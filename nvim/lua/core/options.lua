@@ -49,7 +49,7 @@ vim.opt.fileencoding = 'utf-8'
 
 -- ファイル管理
 vim.opt.autoread = true         -- 外部変更時の自動読み込み
-vim.opt.autowrite = true        -- バッファ切替時の自動保存
+vim.opt.autowrite = false       -- 意図しない保存を避ける
 vim.opt.swapfile = false        -- swapファイル無効化
 vim.opt.backup = false          -- バックアップファイル無効化
 vim.opt.writebackup = false     -- 書き込み前バックアップ無効化
@@ -145,14 +145,8 @@ vim.opt.hlsearch = true         -- 検索ハイライト
 vim.opt.wrapscan = true         -- 検索時のファイル末尾から先頭への折り返し
 
 -- フォールディング（コード折りたたみ）
--- Treesitterベースの折りたたみ（未インストール時はindentにフォールバック）
-local has_treesitter = pcall(require, 'nvim-treesitter')
-if has_treesitter then
-  vim.opt.foldmethod = 'expr'
-  vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-else
-  vim.opt.foldmethod = 'indent'
-end
+-- Treesitterロード後にプラグイン側でexprへ切り替える
+vim.opt.foldmethod = 'indent'
 vim.opt.foldlevelstart = 99     -- 起動時は全て展開
 vim.opt.foldenable = true
 

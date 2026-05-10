@@ -29,7 +29,7 @@
 | `htop/` | htopプロセスビューア設定 | `~/.config/htop` | - |
 | `neofetch/` | Neofetchシステム情報表示設定 | `~/.config/neofetch` | - |
 | `.claude/` | Claude Code設定（権限・フック・スクリプト） | `~/.claude/` | - |
-| `.codex/` | Codex設定（フック・スクリプト） | `~/.codex/` | `config.toml` は既存グローバル設定へ必要項目のみ反映 |
+| `.codex/` | Codex設定（MCP・フック・スクリプト） | `~/.codex/` | `config.toml` もシンボリックリンクで管理 |
 | `commitlint.config.js` | コミットメッセージ検証設定（cz-git） | `~/commitlint.config.js` | - |
 | `Brewfile` | Homebrewパッケージ管理 | - | - |
 | `scripts/` | Claude / Codex フック共通処理 | - | - |
