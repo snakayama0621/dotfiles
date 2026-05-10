@@ -42,6 +42,7 @@ LINKS=(
   "$HOME/.claude/settings.json:$DOTFILE_DIR/.claude/settings.json"
   "$HOME/.claude/CLAUDE.md:$DOTFILE_DIR/.claude/CLAUDE.md"
   "$HOME/.claude/scripts:$DOTFILE_DIR/.claude/scripts"
+  "$HOME/.codex/config.toml:$DOTFILE_DIR/.codex/config.toml"
   "$HOME/.codex/AGENTS.md:$DOTFILE_DIR/.codex/AGENTS.md"
   "$HOME/.codex/hooks.json:$DOTFILE_DIR/.codex/global-hooks.json"
   "$HOME/.codex/scripts:$DOTFILE_DIR/.codex/scripts"
@@ -192,78 +193,6 @@ EOF
   fi
 }
 
-# Codex グローバル設定のセットアップ関数
-# ~/.codex/config.toml は個人設定が多いため symlink せず、hooks 有効化だけを反映する。
-setup_codex_config() {
-  local codex_dir="$HOME/.codex"
-  local codex_config="$codex_dir/config.toml"
-  local source_config="$DOTFILE_DIR/.codex/config.toml"
-
-  if [ ! -f "$source_config" ]; then
-    log_warning "Codex source config not found: $source_config"
-    return 0
-  fi
-
-  if [ "$DRY_RUN" = true ]; then
-    if [ -f "$codex_config" ]; then
-      log_info "[DRY-RUN] Would ensure [features].hooks = true in $codex_config"
-    else
-      log_info "[DRY-RUN] Would create $codex_config from $source_config"
-    fi
-    return 0
-  fi
-
-  mkdir -p "$codex_dir"
-
-  if [ ! -e "$codex_config" ]; then
-    cp "$source_config" "$codex_config"
-    log_success "Created Codex config: $codex_config"
-    return 0
-  fi
-
-  local temp_file="${codex_config}.tmp.$$"
-
-  if grep -q '^\[features\]' "$codex_config"; then
-    awk '
-      BEGIN { in_features = 0; has_hooks = 0 }
-      /^\[/ {
-        if (in_features && !has_hooks) {
-          print "hooks = true"
-          has_hooks = 1
-        }
-        in_features = 0
-      }
-      /^\[features\]$/ {
-        in_features = 1
-        print
-        next
-      }
-      in_features && /^[[:space:]]*codex_hooks[[:space:]]*=/ { next }
-      in_features && /^[[:space:]]*hooks[[:space:]]*=/ {
-        print "hooks = true"
-        has_hooks = 1
-        next
-      }
-      { print }
-      END {
-        if (in_features && !has_hooks) {
-          print "hooks = true"
-        }
-      }
-    ' "$codex_config" > "$temp_file"
-  else
-    cp "$codex_config" "$temp_file"
-    {
-      echo ""
-      echo "[features]"
-      echo "hooks = true"
-    } >> "$temp_file"
-  fi
-
-  mv "$temp_file" "$codex_config"
-  log_success "Enabled Codex hooks in $codex_config"
-}
-
 # 使用方法を表示
 show_usage() {
   cat << EOF
@@ -318,10 +247,6 @@ echo ""
 
 # .gitconfig.local のセットアップ（失敗してもリンク作成は続行）
 setup_gitconfig_local || log_warning "Git local config setup skipped. Create ~/.gitconfig.local manually."
-echo ""
-
-# Codex config.toml は既存の個人設定を保護しながら必要項目だけ反映
-setup_codex_config || log_warning "Codex config setup skipped. Enable [features].hooks manually."
 echo ""
 
 # リンク作成ループ
