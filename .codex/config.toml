@@ -23,47 +23,5 @@ hooks = true
 [projects."/Users/nakayamaseiya/dotfiles"]
 trust_level = "trusted"
 
-[projects."/Users/nakayamaseiya/ghq/local/test"]
-trust_level = "trusted"
-
-[projects."/Users/nakayamaseiya/ghq/github.com/snakayama0621/codex-test"]
-trust_level = "trusted"
-
-[projects."/Users/nakayamaseiya/Documents/New project"]
-trust_level = "trusted"
-
 [tui.model_availability_nux]
 "gpt-5.5" = 3
-
-[marketplaces.openai-bundled]
-last_updated = "2026-05-13T13:33:47Z"
-source_type = "local"
-source = "/Users/nakayamaseiya/.codex/.tmp/bundled-marketplaces/openai-bundled"
-
-[marketplaces.openai-primary-runtime]
-last_updated = "2026-05-10T05:58:40Z"
-source_type = "local"
-source = "/Users/nakayamaseiya/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
-
-[plugins."browser-use@openai-bundled"]
-enabled = true
-
-[plugins."documents@openai-primary-runtime"]
-enabled = true
-
-[plugins."spreadsheets@openai-primary-runtime"]
-enabled = true
-
-[plugins."presentations@openai-primary-runtime"]
-enabled = true
-
-[hooks.state]
-
-[hooks.state."/Users/nakayamaseiya/.codex/hooks.json:post_tool_use:0:0"]
-trusted_hash = "sha256:bf36b32c6a282ed328108ce023f0b97cb3e8d2ce3a63dd4a7add33da979efc14"
-
-[hooks.state."/Users/nakayamaseiya/.codex/hooks.json:pre_tool_use:0:0"]
-trusted_hash = "sha256:f445a357a8422f4c5f6b9e6ad6bc51c65353dd1b992942a7ac00fdf8969c4f24"
-
-[hooks.state."/Users/nakayamaseiya/.codex/hooks.json:stop:0:0"]
-trusted_hash = "sha256:0e9f42e6c587eb4044c0b5aea433249f615f8ad1c04e0cb4af34ed5bdc6ebbe0"
