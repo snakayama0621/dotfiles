@@ -7,7 +7,7 @@
 - macOS の開発環境を再現するための dotfiles を管理します
 - `setup.sh` で Homebrew パッケージ、npm グローバルパッケージ、各種シンボリックリンクをまとめてセットアップします
 - 個人情報を含む Git 設定は `.gitconfig.local` に分離し、リポジトリでは `.gitconfig.local.example` だけを管理します
-- Codex / Claude のフックや許可設定も含め、AI コーディング環境の共通設定を管理します
+- Codex / Claude の許可設定も含め、AI コーディング環境の共通設定を管理します
 
 ## 含まれる設定
 
@@ -29,10 +29,10 @@
 | `htop/` | htopプロセスビューア設定 | `~/.config/htop` | - |
 | `neofetch/` | Neofetchシステム情報表示設定 | `~/.config/neofetch` | - |
 | `.claude/` | Claude Code設定（権限・フック・スクリプト） | `~/.claude/` | - |
-| `.codex/` | Codex設定（MCP・フック・スクリプト） | `~/.codex/` | `config.toml` もシンボリックリンクで管理 |
+| `.codex/` | Codex設定（MCP・指示ファイル） | `~/.codex/` | `config.toml` もシンボリックリンクで管理 |
 | `commitlint.config.js` | コミットメッセージ検証設定（cz-git） | `~/commitlint.config.js` | - |
 | `Brewfile` | Homebrewパッケージ管理 | - | - |
-| `scripts/` | Claude / Codex フック共通処理 | - | - |
+| `scripts/` | Claude フック共通処理 | - | - |
 | `tests/` | セットアップスクリプトのテスト | - | - |
 
 ## 管理方針

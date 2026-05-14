@@ -42,10 +42,8 @@ LINKS=(
   "$HOME/.claude/settings.json:$DOTFILE_DIR/.claude/settings.json"
   "$HOME/.claude/CLAUDE.md:$DOTFILE_DIR/.claude/CLAUDE.md"
   "$HOME/.claude/scripts:$DOTFILE_DIR/.claude/scripts"
-  "$HOME/.codex/config.toml:$DOTFILE_DIR/.codex/config.toml"
+  "$HOME/.codex/config.toml:$DOTFILE_DIR/.codex/user-config.toml"
   "$HOME/.codex/AGENTS.md:$DOTFILE_DIR/.codex/AGENTS.md"
-  "$HOME/.codex/hooks.json:$DOTFILE_DIR/.codex/global-hooks.json"
-  "$HOME/.codex/scripts:$DOTFILE_DIR/.codex/scripts"
   "$HOME/.config/lazygit:$DOTFILE_DIR/lazygit"
   "$HOME/commitlint.config.js:$DOTFILE_DIR/commitlint.config.js"
 )
