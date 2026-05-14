@@ -1,3 +1,7 @@
+personality = "friendly"
+
+notify = ["/Users/nakayamaseiya/.agi-tools/codex-notify.sh"]
+
 [mcp_servers.context7]
 command = "npx"
 args = ["-y", "@upstash/context7-mcp@latest"]

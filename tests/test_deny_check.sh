@@ -9,7 +9,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 DENY_CHECKS=(
   "$REPO_DIR/.claude/scripts/deny-check.sh"
-  "$REPO_DIR/.codex/scripts/deny-check.sh"
+  "$REPO_DIR/scripts/deny-check.sh"
 )
 
 # テスト用の一時ディレクトリ
