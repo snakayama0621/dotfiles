@@ -1,6 +1,11 @@
 personality = "friendly"
 
 notify = ["/Users/nakayamaseiya/.agi-tools/codex-notify.sh"]
+model = "gpt-5.5"
+model_reasoning_effort = "xhigh"
+approval_policy = "on-request"
+approvals_reviewer = "user"
+sandbox_mode = "workspace-write"
 
 [mcp_servers.context7]
 command = "npx"
@@ -26,12 +31,24 @@ trust_level = "trusted"
 "gpt-5.5" = 4
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-13T23:31:09Z"
+last_updated = "2026-05-16T01:02:14Z"
 source_type = "local"
 source = "/Users/nakayamaseiya/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
-[plugins."browser-use@openai-bundled"]
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
 enabled = true
 
 [features]
 goals = true
+
+[sandbox_workspace_write]
+exclude_slash_tmp = false
+exclude_tmpdir_env_var = false
+network_access = false
+writable_roots = ["/Users/nakayamaseiya/.codex/memories"]
