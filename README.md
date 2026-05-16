@@ -29,7 +29,7 @@
 | `htop/` | htopプロセスビューア設定 | `~/.config/htop` | - |
 | `neofetch/` | Neofetchシステム情報表示設定 | `~/.config/neofetch` | - |
 | `.claude/` | Claude Code設定（権限・フック・スクリプト） | `~/.claude/` | - |
-| `.codex/` | Codex設定（MCP・指示ファイル） | `~/.codex/` | `config.toml` もシンボリックリンクで管理 |
+| `.codex/` | Codex設定（MCP・指示ファイル） | `~/.codex/` | `~/.codex/config.toml` は `.codex/user-config.toml` へのシンボリックリンクで管理 |
 | `commitlint.config.js` | コミットメッセージ検証設定（cz-git） | `~/commitlint.config.js` | - |
 | `Brewfile` | Homebrewパッケージ管理 | - | - |
 | `scripts/` | Claude フック共通処理 | - | - |
@@ -56,7 +56,7 @@
 
 ```bash
 cd ~
-git clone git@github.com:TetraTechAi/dotfiles.git
+git clone git@github.com:snakayama0621/dotfiles.git
 ```
 
 ### 2. セットアップ実行
@@ -115,7 +115,7 @@ source ~/.zshrc
 ## 別のマシンへの展開
 
 ```bash
-git clone git@github.com:TetraTechAi/dotfiles.git ~/dotfiles
+git clone git@github.com:snakayama0621/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./setup.sh
 source ~/.zshrc
