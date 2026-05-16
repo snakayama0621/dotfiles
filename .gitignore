@@ -21,6 +21,11 @@ yazi/*-[0-9]*
 # Claude plans (local only)
 .claude/plans/
 
+# Codex local generated config
+.codex/user-config.toml
+.codex/user-config.local.toml
+.codex/user-config.toml.backup.*
+
 # OS generated files
 .DS_Store
 .DS_Store?

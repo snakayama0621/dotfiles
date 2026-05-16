@@ -29,7 +29,7 @@
 | `htop/` | htopプロセスビューア設定 | `~/.config/htop` | - |
 | `neofetch/` | Neofetchシステム情報表示設定 | `~/.config/neofetch` | - |
 | `.claude/` | Claude Code設定（権限・フック・スクリプト） | `~/.claude/` | - |
-| `.codex/` | Codex設定（MCP・指示ファイル） | `~/.codex/` | `~/.codex/config.toml` は `.codex/user-config.toml` へのシンボリックリンクで管理 |
+| `.codex/` | Codex設定（MCP・指示ファイル） | `~/.codex/` | `~/.codex/config.toml` は生成された `.codex/user-config.toml` へのシンボリックリンクで管理 |
 | `commitlint.config.js` | コミットメッセージ検証設定（cz-git） | `~/commitlint.config.js` | - |
 | `Brewfile` | Homebrewパッケージ管理 | - | - |
 | `scripts/` | Claude フック共通処理 | - | - |
@@ -39,8 +39,18 @@
 
 - 設定ファイルは基本的にこのリポジトリで管理し、`link.sh` でホームディレクトリ配下へシンボリックリンクします
 - マシン固有・個人情報を含む設定は、サンプルファイルだけを管理して実体は Git 管理外に置きます
+- Codex の `user-config.toml` は `.codex/user-config.toml.template` から `link.sh` 実行時に生成し、`{{HOME}}` と `{{DOTFILE_DIR}}` を現在のマシンに合わせて展開します
 - `node_modules/` は管理対象にせず、`package-lock.json` と `package.json` から再現します
 - `setup.sh -d` と `link.sh -d` で、実際に変更する前の dry-run を確認できます
+
+### Codex のマシン固有設定
+
+`.codex/user-config.toml` は生成物のため Git 管理外です。`setup.sh` または `link.sh` を実行すると、`.codex/user-config.toml.template` から以下の値が現在の環境向けに自動展開されます：
+
+- `{{HOME}}` - 現在のホームディレクトリ
+- `{{DOTFILE_DIR}}` - このリポジトリの配置先
+
+マシン固有の trusted project などを追加したい場合は、Git 管理外の `.codex/user-config.local.toml` に追記します。このファイルが存在する場合、生成時に `.codex/user-config.toml` の末尾へ追加されます。
 
 ## 必要要件
 
@@ -69,8 +79,9 @@ cd ~/dotfiles
 これにより以下が実行されます：
 1. Brewfileからパッケージをインストール
 2. npmグローバルパッケージをインストール（czg等）
-3. シンボリックリンクを作成
-4. sketchybarをセットアップ
+3. Codex のマシン固有設定を生成
+4. シンボリックリンクを作成
+5. sketchybarをセットアップ
 
 ### オプション
 

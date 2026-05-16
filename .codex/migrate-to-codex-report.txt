@@ -11,5 +11,5 @@ Migration surfaces:
   active: MCP config - 0 MCP server(s) converted into config.toml.
   inactive: subagents - No subagents found.
 Migration report:
-  rewritten: AGENTS.md - Existing Codex instructions already present at /Users/nakayamaseiya/dotfiles/AGENTS.md.
+  rewritten: AGENTS.md - Existing Codex instructions already present at AGENTS.md.
   rewritten: .codex/config.toml - Converted 0 MCP server entries.
