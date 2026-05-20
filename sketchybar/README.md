@@ -70,7 +70,7 @@ curl -sL https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0
 
 ## 起動
 
-Aerospaceから自動起動される設定になっています。
+現在のAerospace設定では自動起動コマンドは未設定です。ワークスペース変更時の通知連携のみ設定されています。
 
 手動で起動/再起動する場合:
 

@@ -9,25 +9,5 @@ url = "https://developers.openai.com/mcp"
 command = "npx"
 args = ["-y", "@playwright/mcp@latest"]
 
-[projects."/Users/nakayamaseiya/dotfiles"]
-trust_level = "trusted"
-
-[projects."/Users/nakayamaseiya/Documents/New project"]
-trust_level = "trusted"
-
-[projects."/Users/nakayamaseiya/ghq/github.com/snakayama0621/learning-journey"]
-trust_level = "trusted"
-
-[tui.model_availability_nux]
-"gpt-5.5" = 4
-
-[marketplaces.openai-bundled]
-last_updated = "2026-05-13T23:31:09Z"
-source_type = "local"
-source = "/Users/nakayamaseiya/.codex/.tmp/bundled-marketplaces/openai-bundled"
-
-[plugins."browser-use@openai-bundled"]
-enabled = true
-
 [features]
 goals = true
