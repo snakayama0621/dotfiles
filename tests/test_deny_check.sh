@@ -125,7 +125,7 @@ assert_denied "ssh コマンドは拒否" "ssh user@host"
 echo ""
 
 # --- コマンド分割テスト ---
-bold "--- 複合コマンド(;, &&, ||)のチェック ---"
+bold "--- 複合コマンドのチェック ---"
 
 assert_denied "セミコロン区切りの危険なコマンドを検出" "echo hello; sudo rm -rf /tmp"
 assert_denied "&& 区切りの危険なコマンドを検出" "ls -la && sudo apt update"
@@ -143,7 +143,7 @@ assert_allowed "空のコマンドは許可" ""
 assert_allowed "スペースのみは許可" "   "
 assert_denied "rm -rf /path はワイルドカードで拒否" "rm -rf /tmp/mytest"
 assert_allowed "カレントディレクトリのrm -rfは許可" "rm -rf ./node_modules"
-assert_allowed "パイプは分割しない（安全なコマンド）" "echo hello | grep hello"
+assert_allowed "安全なパイプラインは許可" "echo hello | grep hello"
 
 echo ""
 
