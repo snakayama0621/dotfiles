@@ -13,6 +13,7 @@ sandbox_mode = "workspace-write"
 [mcp_servers.context7]
 command = "npx"
 args = ["-y", "@upstash/context7-mcp@latest"]
+startup_timeout_sec = 120
 
 [mcp_servers.openaiDeveloperDocs]
 url = "https://developers.openai.com/mcp"
@@ -20,6 +21,7 @@ url = "https://developers.openai.com/mcp"
 [mcp_servers.playwright]
 command = "npx"
 args = ["-y", "@playwright/mcp@latest"]
+startup_timeout_sec = 120
 
 [projects."{{DOTFILE_DIR}}"]
 trust_level = "trusted"
