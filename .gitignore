@@ -13,6 +13,7 @@ gh/
 *.bak
 
 # Neovim
+.nvimlog
 nvim/lua/core/*.backup
 
 # Yazi temporary files
