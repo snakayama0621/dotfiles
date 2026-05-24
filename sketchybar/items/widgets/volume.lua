@@ -1,6 +1,7 @@
 local colors = require("colors")
 local icons = require("icons")
 local settings = require("settings")
+local shell = require("helpers.shell")
 
 local popup_width = 250
 
@@ -139,9 +140,9 @@ local function volume_toggle_details(env)
 						width = popup_width,
 						align = "center",
 						label = { string = device, color = color },
-						click_script = 'SwitchAudioSource -s "'
-							.. device
-							.. '" && sketchybar --set /volume.device\\.*/ label.color='
+						click_script = "SwitchAudioSource -s "
+							.. shell.quote(device)
+							.. " && sketchybar --set /volume.device\\.*/ label.color="
 							.. colors.grey
 							.. " --set $NAME label.color="
 							.. colors.white,

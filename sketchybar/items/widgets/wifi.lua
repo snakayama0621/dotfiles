@@ -1,6 +1,7 @@
 local icons = require("icons")
 local colors = require("colors")
 local settings = require("settings")
+local shell = require("helpers.shell")
 
 -- Execute the event provider binary which provides the event "network_update"
 -- for the network interface "en0", which is fired every 2.0 seconds.
@@ -309,7 +310,7 @@ wifi:subscribe("mouse.exited.global", hide_details)
 
 local function copy_label_to_clipboard(env)
 	local label = sbar.query(env.NAME).label.value
-	sbar.exec('echo "' .. label .. '" | pbcopy')
+	sbar.exec("printf %s " .. shell.quote(label) .. " | pbcopy")
 	sbar.set(env.NAME, { label = { string = icons.clipboard, align = "center" } })
 	sbar.delay(1, function()
 		sbar.set(env.NAME, { label = { string = label, align = "right" } })
