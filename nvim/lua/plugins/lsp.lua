@@ -62,102 +62,97 @@ return {
       -- Capabilities設定（nvim-cmpとの連携）
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-      -- 自動インストール + ハンドラー設定
+      local servers = {
+        -- スクリプト言語
+        'lua_ls',           -- Lua
+        'ts_ls',            -- TypeScript/JavaScript
+        'pyright',          -- Python
+        'intelephense',     -- PHP
+
+        -- コンパイル言語
+        'gopls',            -- Go
+        'rust_analyzer',    -- Rust
+        'clangd',           -- C/C++
+
+        -- Web
+        'html',             -- HTML
+        'cssls',            -- CSS
+        'tailwindcss',      -- Tailwind CSS
+
+        -- データ・設定ファイル
+        'jsonls',           -- JSON
+        'yamlls',           -- YAML
+        'taplo',            -- TOML
+
+        -- シェル・インフラ
+        'bashls',           -- Bash/Zsh
+        'dockerls',         -- Dockerfile
+        'docker_compose_language_service',  -- Docker Compose
+        'terraformls',      -- Terraform
+      }
+
+      -- Neovim 0.11+ のネイティブLSP設定APIを使用
+      for _, server_name in ipairs(servers) do
+        vim.lsp.config(server_name, {
+          capabilities = capabilities,
+        })
+      end
+
+      -- lua_ls専用設定
+      vim.lsp.config('lua_ls', {
+        capabilities = capabilities,
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { 'vim' },
+            },
+            workspace = {
+              library = vim.api.nvim_get_runtime_file('', true),
+              checkThirdParty = false,
+            },
+            telemetry = {
+              enable = false,
+            },
+          },
+        },
+      })
+
+      -- ts_ls専用設定
+      vim.lsp.config('ts_ls', {
+        capabilities = capabilities,
+        settings = {
+          typescript = {
+            inlayHints = {
+              includeInlayParameterNameHints = 'all',
+              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayVariableTypeHints = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayEnumMemberValueHints = true,
+            },
+          },
+        },
+      })
+
+      -- pyright専用設定
+      vim.lsp.config('pyright', {
+        capabilities = capabilities,
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode = 'basic',
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+            },
+          },
+        },
+      })
+
+      -- 自動インストール + インストール済みサーバーの自動有効化
       require('mason-lspconfig').setup({
-        ensure_installed = {
-          -- スクリプト言語
-          'lua_ls',           -- Lua
-          'ts_ls',            -- TypeScript/JavaScript
-          'pyright',          -- Python
-          'intelephense',     -- PHP
-
-          -- コンパイル言語
-          'gopls',            -- Go
-          'rust_analyzer',    -- Rust
-          'clangd',           -- C/C++
-
-          -- Web
-          'html',             -- HTML
-          'cssls',            -- CSS
-          'tailwindcss',      -- Tailwind CSS
-
-          -- データ・設定ファイル
-          'jsonls',           -- JSON
-          'yamlls',           -- YAML
-          'taplo',            -- TOML
-
-          -- シェル・インフラ
-          'bashls',           -- Bash/Zsh
-          'dockerls',         -- Dockerfile
-          'docker_compose_language_service',  -- Docker Compose
-          'terraformls',      -- Terraform
-        },
-        automatic_installation = true,
-        handlers = {
-          -- デフォルトハンドラー（全サーバー共通）
-          function(server_name)
-            require('lspconfig')[server_name].setup({
-              capabilities = capabilities,
-            })
-          end,
-
-          -- lua_ls専用設定
-          ['lua_ls'] = function()
-            require('lspconfig').lua_ls.setup({
-              capabilities = capabilities,
-              settings = {
-                Lua = {
-                  diagnostics = {
-                    globals = { 'vim' },
-                  },
-                  workspace = {
-                    library = vim.api.nvim_get_runtime_file('', true),
-                    checkThirdParty = false,
-                  },
-                  telemetry = {
-                    enable = false,
-                  },
-                },
-              },
-            })
-          end,
-
-          -- ts_ls専用設定
-          ['ts_ls'] = function()
-            require('lspconfig').ts_ls.setup({
-              capabilities = capabilities,
-              settings = {
-                typescript = {
-                  inlayHints = {
-                    includeInlayParameterNameHints = 'all',
-                    includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                    includeInlayFunctionParameterTypeHints = true,
-                    includeInlayVariableTypeHints = true,
-                    includeInlayPropertyDeclarationTypeHints = true,
-                    includeInlayFunctionLikeReturnTypeHints = true,
-                    includeInlayEnumMemberValueHints = true,
-                  },
-                },
-              },
-            })
-          end,
-
-          -- pyright専用設定
-          ['pyright'] = function()
-            require('lspconfig').pyright.setup({
-              capabilities = capabilities,
-              settings = {
-                python = {
-                  analysis = {
-                    typeCheckingMode = 'basic',
-                    autoSearchPaths = true,
-                    useLibraryCodeForTypes = true,
-                  },
-                },
-              },
-            })
-          end,
-        },
+        ensure_installed = servers,
+        automatic_enable = true,
       })
 
       -- 診断表示設定

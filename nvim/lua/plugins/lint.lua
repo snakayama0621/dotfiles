@@ -47,11 +47,50 @@ return {
 
     -- 自動リント実行（autocmd）
     local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
+    local heavy_linters_by_ft = {
+      python = { 'mypy' },
+      go = { 'golangcilint' },
+    }
 
-    vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
+    local function try_lint(include_heavy)
+      if include_heavy then
+        lint.try_lint()
+        return
+      end
+
+      local linters = lint.linters_by_ft[vim.bo.filetype]
+      if not linters then
+        return
+      end
+
+      local heavy_linters = {}
+      for _, linter in ipairs(heavy_linters_by_ft[vim.bo.filetype] or {}) do
+        heavy_linters[linter] = true
+      end
+
+      local light_linters = {}
+      for _, linter in ipairs(linters) do
+        if not heavy_linters[linter] then
+          table.insert(light_linters, linter)
+        end
+      end
+
+      if #light_linters > 0 then
+        lint.try_lint(light_linters)
+      end
+    end
+
+    vim.api.nvim_create_autocmd({ 'BufEnter', 'InsertLeave' }, {
       group = lint_augroup,
       callback = function()
-        lint.try_lint()
+        try_lint(false)
+      end,
+    })
+
+    vim.api.nvim_create_autocmd('BufWritePost', {
+      group = lint_augroup,
+      callback = function()
+        try_lint(true)
       end,
     })
 
@@ -78,6 +117,6 @@ return {
 -- :LintInfo    - 現在のファイルタイプに設定されたリンター表示
 --
 -- 自動リント:
--- - ファイルを開いた時
--- - ファイル保存後
--- - インサートモード終了時
+-- - ファイルを開いた時（重いリンターを除く）
+-- - インサートモード終了時（重いリンターを除く）
+-- - ファイル保存後（全リンター）
