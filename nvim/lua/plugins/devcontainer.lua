@@ -33,21 +33,23 @@ return {
       'DevcontainerDown',
       'DevcontainerConnect',
       'DevcontainerExec',
-      'DevContainerToggle',
-      'DevcontainerLogs',
+      'DevcontainerToggle',
     },
     keys = {
       -- コンテナ基本操作
       { '<leader>Du', '<cmd>DevcontainerUp<CR>', desc = 'DevContainer: ビルド・起動' },
       { '<leader>Dd', '<cmd>DevcontainerDown<CR>', desc = 'DevContainer: 停止・削除' },
-      { '<leader>Dt', '<cmd>DevContainerToggle<CR>', desc = 'DevContainer: ターミナル切替' },
+      { '<leader>Dt', '<cmd>DevcontainerToggle<CR>', desc = 'DevContainer: ターミナル切替' },
 
       -- コンテナ内でシェルを起動（推奨）
       {
         '<leader>Dc',
         function()
           -- コンテナ内でzshを起動（下部に表示）
-          vim.cmd("DevcontainerExec cmd='zsh' direction='horizontal'")
+          vim.api.nvim_cmd({
+            cmd = 'DevcontainerExec',
+            args = { "cmd='zsh' direction='horizontal'" },
+          }, {})
         end,
         desc = 'DevContainer: シェル接続',
       },
@@ -76,7 +78,10 @@ return {
         function()
           vim.ui.input({ prompt = 'Command to execute: ' }, function(cmd)
             if cmd and cmd ~= '' then
-              vim.cmd("DevcontainerExec cmd='" .. cmd .. "'")
+              vim.api.nvim_cmd({
+                cmd = 'DevcontainerExec',
+                args = { cmd },
+              }, {})
             end
           end)
         end,
