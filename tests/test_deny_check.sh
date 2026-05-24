@@ -130,6 +130,9 @@ bold "--- 複合コマンド(;, &&, ||)のチェック ---"
 assert_denied "セミコロン区切りの危険なコマンドを検出" "echo hello; sudo rm -rf /tmp"
 assert_denied "&& 区切りの危険なコマンドを検出" "ls -la && sudo apt update"
 assert_denied "|| 区切りの危険なコマンドを検出" "test -f file || sudo reboot"
+assert_denied "パイプ区切りの危険なコマンドを検出" "echo hello | sudo tee /tmp/hello"
+assert_denied "コマンド置換内の危険なコマンドを検出" "echo \$(sudo whoami)"
+assert_denied "バッククォート内の危険なコマンドを検出" "echo \`sudo whoami\`"
 
 echo ""
 

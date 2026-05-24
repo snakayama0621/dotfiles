@@ -51,6 +51,10 @@ check_command_part "$command"
 split_command="${command//;/$'\n'}"
 split_command="${split_command//&&/$'\n'}"
 split_command="${split_command//\|\|/$'\n'}"
+split_command="${split_command//|/$'\n'}"
+split_command="${split_command//\$\(/$'\n'}"
+split_command="${split_command//\)/$'\n'}"
+split_command="${split_command//\`/$'\n'}"
 
 while IFS= read -r cmd_part; do
   [ -z "$(printf '%s' "$cmd_part" | tr -d '[:space:]')" ] && continue
