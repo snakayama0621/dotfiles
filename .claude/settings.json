@@ -205,7 +205,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "AGI_COCKPIT_HOOK=1; if [ -n \"$AGI_COCKPIT_STATUS_FILE\" ]; then mkdir -p \"$(dirname \"$AGI_COCKPIT_STATUS_FILE\")\"; TMP=\"${AGI_COCKPIT_STATUS_FILE}.tmp\"; if [ -f \"$AGI_COCKPIT_STATUS_FILE\" ]; then jq  '.status = \"waiting_confirmation\"' \"$AGI_COCKPIT_STATUS_FILE\" > \"$TMP\"; else jq -n  '.status = \"waiting_confirmation\"' > \"$TMP\"; fi; if [ -s \"$TMP\" ]; then mv \"$TMP\" \"$AGI_COCKPIT_STATUS_FILE\"; else rm -f \"$TMP\"; fi; fi"
+            "command": "AGI_COCKPIT_HOOK=1; if [ -n \"$AGI_COCKPIT_STATUS_FILE\" ] && [ \"$AGI_COCKPIT_AGENT_TYPE\" = \"claude\" ]; then mkdir -p \"$(dirname \"$AGI_COCKPIT_STATUS_FILE\")\"; TMP=\"${AGI_COCKPIT_STATUS_FILE}.tmp\"; if [ -f \"$AGI_COCKPIT_STATUS_FILE\" ]; then jq  '.agentType = \"claude\" | .status = \"waiting_confirmation\"' \"$AGI_COCKPIT_STATUS_FILE\" > \"$TMP\"; else jq -n  '.agentType = \"claude\" | .status = \"waiting_confirmation\"' > \"$TMP\"; fi; if [ -s \"$TMP\" ]; then mv \"$TMP\" \"$AGI_COCKPIT_STATUS_FILE\"; else rm -f \"$TMP\"; fi; fi"
           }
         ]
       }
@@ -225,7 +225,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "AGI_COCKPIT_HOOK=1; if [ -n \"$AGI_COCKPIT_STATUS_FILE\" ]; then mkdir -p \"$(dirname \"$AGI_COCKPIT_STATUS_FILE\")\"; TMP=\"${AGI_COCKPIT_STATUS_FILE}.tmp\"; if [ -f \"$AGI_COCKPIT_STATUS_FILE\" ]; then jq  '.status = \"running\"' \"$AGI_COCKPIT_STATUS_FILE\" > \"$TMP\"; else jq -n  '.status = \"running\"' > \"$TMP\"; fi; if [ -s \"$TMP\" ]; then mv \"$TMP\" \"$AGI_COCKPIT_STATUS_FILE\"; else rm -f \"$TMP\"; fi; fi"
+            "command": "AGI_COCKPIT_HOOK=1; if [ -n \"$AGI_COCKPIT_STATUS_FILE\" ] && [ \"$AGI_COCKPIT_AGENT_TYPE\" = \"claude\" ]; then mkdir -p \"$(dirname \"$AGI_COCKPIT_STATUS_FILE\")\"; TMP=\"${AGI_COCKPIT_STATUS_FILE}.tmp\"; if [ -f \"$AGI_COCKPIT_STATUS_FILE\" ]; then jq  '.agentType = \"claude\" | .status = \"running\"' \"$AGI_COCKPIT_STATUS_FILE\" > \"$TMP\"; else jq -n  '.agentType = \"claude\" | .status = \"running\"' > \"$TMP\"; fi; if [ -s \"$TMP\" ]; then mv \"$TMP\" \"$AGI_COCKPIT_STATUS_FILE\"; else rm -f \"$TMP\"; fi; fi"
           }
         ]
       }
@@ -244,7 +244,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "AGI_COCKPIT_HOOK=1; if [ -n \"$AGI_COCKPIT_STATUS_FILE\" ]; then mkdir -p \"$(dirname \"$AGI_COCKPIT_STATUS_FILE\")\"; TMP=\"${AGI_COCKPIT_STATUS_FILE}.tmp\"; if [ -f \"$AGI_COCKPIT_STATUS_FILE\" ]; then jq  '.status = \"waiting_confirmation\"' \"$AGI_COCKPIT_STATUS_FILE\" > \"$TMP\"; else jq -n  '.status = \"waiting_confirmation\"' > \"$TMP\"; fi; if [ -s \"$TMP\" ]; then mv \"$TMP\" \"$AGI_COCKPIT_STATUS_FILE\"; else rm -f \"$TMP\"; fi; fi"
+            "command": "AGI_COCKPIT_HOOK=1; if [ -n \"$AGI_COCKPIT_STATUS_FILE\" ] && [ \"$AGI_COCKPIT_AGENT_TYPE\" = \"claude\" ]; then mkdir -p \"$(dirname \"$AGI_COCKPIT_STATUS_FILE\")\"; TMP=\"${AGI_COCKPIT_STATUS_FILE}.tmp\"; if [ -f \"$AGI_COCKPIT_STATUS_FILE\" ]; then jq  '.agentType = \"claude\" | .status = \"waiting_confirmation\"' \"$AGI_COCKPIT_STATUS_FILE\" > \"$TMP\"; else jq -n  '.agentType = \"claude\" | .status = \"waiting_confirmation\"' > \"$TMP\"; fi; if [ -s \"$TMP\" ]; then mv \"$TMP\" \"$AGI_COCKPIT_STATUS_FILE\"; else rm -f \"$TMP\"; fi; fi"
           }
         ]
       }
@@ -263,7 +263,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "AGI_COCKPIT_HOOK=1; if [ -n \"$AGI_COCKPIT_STATUS_FILE\" ]; then INPUT=$(cat); SID=$(printf \"%s\" \"$INPUT\" | jq -r '(.session_id // .sessionId // ((.transcript_path // .transcriptPath // \"\") | split(\"/\") | last | sub(\"\\\\.jsonl$\"; \"\"))) // empty' 2>/dev/null); if [ -z \"$SID\" ]; then SID=$(echo \"$CLAUDE_ENV_FILE\" | sed -n \"s|.*/session-env/\\([^/]*\\)/.*|\\1|p\"); fi; mkdir -p \"$(dirname \"$AGI_COCKPIT_STATUS_FILE\")\"; TMP=\"${AGI_COCKPIT_STATUS_FILE}.tmp\"; if [ -f \"$AGI_COCKPIT_STATUS_FILE\" ]; then jq --arg sid \"$SID\" '.status = \"waiting_confirmation\" | .sessionId = $sid' \"$AGI_COCKPIT_STATUS_FILE\" > \"$TMP\"; else jq -n --arg sid \"$SID\" '.status = \"waiting_confirmation\" | .sessionId = $sid' > \"$TMP\"; fi; if [ -s \"$TMP\" ]; then mv \"$TMP\" \"$AGI_COCKPIT_STATUS_FILE\"; else rm -f \"$TMP\"; fi; fi"
+            "command": "AGI_COCKPIT_HOOK=1; if [ -n \"$AGI_COCKPIT_STATUS_FILE\" ] && [ \"$AGI_COCKPIT_AGENT_TYPE\" = \"claude\" ]; then INPUT=$(cat); SID=$(printf \"%s\" \"$INPUT\" | jq -r '(.session_id // .sessionId // ((.transcript_path // .transcriptPath // \"\") | split(\"/\") | last | sub(\"\\\\.jsonl$\"; \"\"))) // empty' 2>/dev/null); if [ -z \"$SID\" ]; then SID=$(echo \"$CLAUDE_ENV_FILE\" | sed -n \"s|.*/session-env/\\([^/]*\\)/.*|\\1|p\"); fi; mkdir -p \"$(dirname \"$AGI_COCKPIT_STATUS_FILE\")\"; TMP=\"${AGI_COCKPIT_STATUS_FILE}.tmp\"; if [ -f \"$AGI_COCKPIT_STATUS_FILE\" ]; then jq --arg sid \"$SID\" '.agentType = \"claude\" | .status = \"waiting_confirmation\" | .sessionId = $sid' \"$AGI_COCKPIT_STATUS_FILE\" > \"$TMP\"; else jq -n --arg sid \"$SID\" '.agentType = \"claude\" | .status = \"waiting_confirmation\" | .sessionId = $sid' > \"$TMP\"; fi; if [ -s \"$TMP\" ]; then mv \"$TMP\" \"$AGI_COCKPIT_STATUS_FILE\"; else rm -f \"$TMP\"; fi; fi"
           }
         ]
       }
@@ -274,7 +274,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "AGI_COCKPIT_HOOK=1; if [ -n \"$AGI_COCKPIT_STATUS_FILE\" ]; then INPUT=$(cat); SID=$(printf \"%s\" \"$INPUT\" | jq -r '(.session_id // .sessionId // ((.transcript_path // .transcriptPath // \"\") | split(\"/\") | last | sub(\"\\\\.jsonl$\"; \"\"))) // empty' 2>/dev/null); if [ -z \"$SID\" ]; then SID=$(echo \"$CLAUDE_ENV_FILE\" | sed -n \"s|.*/session-env/\\([^/]*\\)/.*|\\1|p\"); fi; mkdir -p \"$(dirname \"$AGI_COCKPIT_STATUS_FILE\")\"; TMP=\"${AGI_COCKPIT_STATUS_FILE}.tmp\"; if [ -f \"$AGI_COCKPIT_STATUS_FILE\" ]; then jq --arg sid \"$SID\" '.sessionId = $sid' \"$AGI_COCKPIT_STATUS_FILE\" > \"$TMP\"; else jq -n --arg sid \"$SID\" '.sessionId = $sid' > \"$TMP\"; fi; if [ -s \"$TMP\" ]; then mv \"$TMP\" \"$AGI_COCKPIT_STATUS_FILE\"; else rm -f \"$TMP\"; fi; fi"
+            "command": "AGI_COCKPIT_HOOK=1; if [ -n \"$AGI_COCKPIT_STATUS_FILE\" ] && [ \"$AGI_COCKPIT_AGENT_TYPE\" = \"claude\" ]; then INPUT=$(cat); SID=$(printf \"%s\" \"$INPUT\" | jq -r '(.session_id // .sessionId // ((.transcript_path // .transcriptPath // \"\") | split(\"/\") | last | sub(\"\\\\.jsonl$\"; \"\"))) // empty' 2>/dev/null); if [ -z \"$SID\" ]; then SID=$(echo \"$CLAUDE_ENV_FILE\" | sed -n \"s|.*/session-env/\\([^/]*\\)/.*|\\1|p\"); fi; mkdir -p \"$(dirname \"$AGI_COCKPIT_STATUS_FILE\")\"; TMP=\"${AGI_COCKPIT_STATUS_FILE}.tmp\"; if [ -f \"$AGI_COCKPIT_STATUS_FILE\" ]; then jq --arg sid \"$SID\" '.agentType = \"claude\" | .sessionId = $sid' \"$AGI_COCKPIT_STATUS_FILE\" > \"$TMP\"; else jq -n --arg sid \"$SID\" '.agentType = \"claude\" | .sessionId = $sid' > \"$TMP\"; fi; if [ -s \"$TMP\" ]; then mv \"$TMP\" \"$AGI_COCKPIT_STATUS_FILE\"; else rm -f \"$TMP\"; fi; fi"
           }
         ]
       }
@@ -285,7 +285,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "AGI_COCKPIT_HOOK=1; if [ -n \"$AGI_COCKPIT_STATUS_FILE\" ]; then mkdir -p \"$(dirname \"$AGI_COCKPIT_STATUS_FILE\")\"; TMP=\"${AGI_COCKPIT_STATUS_FILE}.tmp\"; if [ -f \"$AGI_COCKPIT_STATUS_FILE\" ]; then jq  '.status = \"running\"' \"$AGI_COCKPIT_STATUS_FILE\" > \"$TMP\"; else jq -n  '.status = \"running\"' > \"$TMP\"; fi; if [ -s \"$TMP\" ]; then mv \"$TMP\" \"$AGI_COCKPIT_STATUS_FILE\"; else rm -f \"$TMP\"; fi; fi"
+            "command": "AGI_COCKPIT_HOOK=1; if [ -n \"$AGI_COCKPIT_STATUS_FILE\" ] && [ \"$AGI_COCKPIT_AGENT_TYPE\" = \"claude\" ]; then mkdir -p \"$(dirname \"$AGI_COCKPIT_STATUS_FILE\")\"; TMP=\"${AGI_COCKPIT_STATUS_FILE}.tmp\"; if [ -f \"$AGI_COCKPIT_STATUS_FILE\" ]; then jq  '.agentType = \"claude\" | .status = \"running\"' \"$AGI_COCKPIT_STATUS_FILE\" > \"$TMP\"; else jq -n  '.agentType = \"claude\" | .status = \"running\"' > \"$TMP\"; fi; if [ -s \"$TMP\" ]; then mv \"$TMP\" \"$AGI_COCKPIT_STATUS_FILE\"; else rm -f \"$TMP\"; fi; fi"
           }
         ]
       }
