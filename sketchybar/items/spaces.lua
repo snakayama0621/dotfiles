@@ -5,28 +5,65 @@ local app_icons = require("helpers.icon_map")
 
 local spaces = {}
 
--- Aerospace workspaces (1-9, A-G)
-local workspaces = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G" }
+-- Aerospace workspaces
+local workspaces = {
+	"1",
+	"2",
+	"3",
+	"4",
+	"5",
+	"6",
+	"7",
+	"8",
+	"9",
+	"A",
+	"B",
+	"C",
+	"D",
+	"E",
+	"F",
+	"G",
+	"I",
+	"M",
+	"N",
+	"O",
+	"P",
+	"Q",
+	"R",
+	"S",
+	"T",
+	"U",
+	"V",
+	"W",
+	"X",
+	"Y",
+	"Z",
+}
 
 -- Color mapping for workspaces
-local colors_spaces = {
-	["1"] = colors.cmap_1,
-	["2"] = colors.cmap_2,
-	["3"] = colors.cmap_3,
-	["4"] = colors.cmap_4,
-	["5"] = colors.cmap_5,
-	["6"] = colors.cmap_6,
-	["7"] = colors.cmap_7,
-	["8"] = colors.cmap_8,
-	["9"] = colors.cmap_9,
-	["A"] = colors.cmap_10,
-	["B"] = colors.tn_magenta,
-	["C"] = colors.tn_blue,
-	["D"] = colors.tn_cyan,
-	["E"] = colors.tn_green,
-	["F"] = colors.tn_yellow,
-	["G"] = colors.tn_orange,
+local workspace_palette = {
+	colors.cmap_1,
+	colors.cmap_2,
+	colors.cmap_3,
+	colors.cmap_4,
+	colors.cmap_5,
+	colors.cmap_6,
+	colors.cmap_7,
+	colors.cmap_8,
+	colors.cmap_9,
+	colors.cmap_10,
+	colors.tn_magenta,
+	colors.tn_blue,
+	colors.tn_cyan,
+	colors.tn_green,
+	colors.tn_yellow,
+	colors.tn_orange,
 }
+
+local colors_spaces = {}
+for index, ws_name in ipairs(workspaces) do
+	colors_spaces[ws_name] = workspace_palette[((index - 1) % #workspace_palette) + 1]
+end
 
 -- Register custom event for aerospace workspace change
 sbar.add("event", "aerospace_workspace_change")
