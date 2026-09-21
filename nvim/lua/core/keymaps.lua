@@ -66,28 +66,28 @@ vim.keymap.set('n', '<leader>ba', '<cmd>%bd|e#<CR>', { desc = '他のバッフ�
 ------------------------------------------------------------------------------
 
 -- 定義・参照ジャンプ
-vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'LSP: 定義へジャンプ' })
-vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'LSP: 宣言へジャンプ' })
-vim.keymap.set('n', 'gr', vim.lsp.buf.references, { desc = 'LSP: 参照一覧' })
-vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = 'LSP: 実装へジャンプ' })
-vim.keymap.set('n', '<leader>gt', vim.lsp.buf.type_definition, { desc = 'LSP: 型定義へジャンプ' })
+vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition() end, { desc = 'LSP: 定義へジャンプ' })
+vim.keymap.set('n', 'gD', function() vim.lsp.buf.declaration() end, { desc = 'LSP: 宣言へジャンプ' })
+vim.keymap.set('n', 'gr', function() vim.lsp.buf.references() end, { desc = 'LSP: 参照一覧' })
+vim.keymap.set('n', 'gi', function() vim.lsp.buf.implementation() end, { desc = 'LSP: 実装へジャンプ' })
+vim.keymap.set('n', '<leader>gt', function() vim.lsp.buf.type_definition() end, { desc = 'LSP: 型定義へジャンプ' })
 
 -- ホバー・シグネチャヘルプ
-vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'LSP: ホバー情報表示' })
-vim.keymap.set('n', '<leader>k', vim.lsp.buf.signature_help, { desc = 'LSP: シグネチャヘルプ' })
+vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, { desc = 'LSP: ホバー情報表示' })
+vim.keymap.set('n', '<leader>k', function() vim.lsp.buf.signature_help() end, { desc = 'LSP: シグネチャヘルプ' })
 
 -- コードアクション・リネーム
-vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'LSP: コードアクション' })
-vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'LSP: リネーム' })
+vim.keymap.set('n', '<leader>ca', function() vim.lsp.buf.code_action() end, { desc = 'LSP: コードアクション' })
+vim.keymap.set('n', '<leader>rn', function() vim.lsp.buf.rename() end, { desc = 'LSP: リネーム' })
 
 -- フォーマット（conform.nvim で設定）
 -- vim.keymap.set('n', '<leader>fm', vim.lsp.buf.format, { desc = 'LSP: フォーマット' })
 
 -- 診断
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = '前の診断へ移動' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = '次の診断へ移動' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = '診断フロート表示' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = '診断リスト表示' })
+vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = '前の診断へ移動' })
+vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = '次の診断へ移動' })
+vim.keymap.set('n', '<leader>e', function() vim.diagnostic.open_float() end, { desc = '診断フロート表示' })
+vim.keymap.set('n', '<leader>q', function() vim.diagnostic.setloclist() end, { desc = '診断リスト表示' })
 
 ------------------------------------------------------------------------------
 -- 4. Telescope操作（プラグイン導入後に有効化）

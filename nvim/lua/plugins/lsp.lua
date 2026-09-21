@@ -41,7 +41,7 @@ return {
               'phpcs',           -- PHP
             },
             auto_update = false,
-            run_on_start = false,
+            run_on_start = false, -- 初回は :MasonToolsInstall を実行（README参照）
           })
         end,
       },
@@ -183,23 +183,6 @@ return {
         local hl = 'DiagnosticSign' .. type
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
       end
-
-      -- LSPアタッチ時の設定
-      vim.api.nvim_create_autocmd('LspAttach', {
-        group = vim.api.nvim_create_augroup('lsp_attach', { clear = true }),
-        callback = function(event)
-          -- ホバー情報をフロートウィンドウで表示
-          vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-            vim.lsp.handlers.hover,
-            { border = 'rounded' }
-          )
-
-          vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-            vim.lsp.handlers.signature_help,
-            { border = 'rounded' }
-          )
-        end,
-      })
     end,
   },
 }

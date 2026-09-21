@@ -8,6 +8,12 @@ return {
   cmd = "Copilot",
   event = "InsertEnter",
   config = function()
+    local function should_attach(bufnr, bufname)
+      return vim.bo[bufnr].buflisted
+        and vim.bo[bufnr].buftype == ""
+        and vim.fs.basename(bufname):sub(1, 1) ~= "."
+    end
+
     require("copilot").setup({
       -- パネル設定（候補一覧表示）
       panel = {
@@ -51,14 +57,26 @@ return {
         hgcommit = false,
         svn = false,
         cvs = false,
-        ["."] = false,  -- 隠しファイルは無効
       },
+
+      -- 隠しファイルと特殊バッファには接続しない
+      should_attach = should_attach,
 
       -- Copilotサーバー設定
       copilot_node_command = "node",  -- Node.jsのパス
 
       -- 追加設定
       server_opts_overrides = {},
+    })
+
+    -- 接続済みのファイルを隠しファイルに改名した場合も接続を解除する
+    vim.api.nvim_create_autocmd("BufFilePost", {
+      group = vim.api.nvim_create_augroup("copilot_file_policy", { clear = true }),
+      callback = function(args)
+        if not should_attach(args.buf, vim.api.nvim_buf_get_name(args.buf)) then
+          require("copilot.client").buf_detach_if_attached(args.buf)
+        end
+      end,
     })
   end,
 }

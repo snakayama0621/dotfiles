@@ -36,6 +36,7 @@ vim.opt.cursorline = true
 -- 見た目
 vim.opt.background = 'dark'
 vim.opt.termguicolors = true
+vim.opt.winborder = 'rounded'   -- LSPなどのフロートウィンドウの枠
 
 -- マウス統合
 vim.opt.mouse = 'a'

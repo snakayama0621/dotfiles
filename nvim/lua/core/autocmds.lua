@@ -95,7 +95,7 @@ autocmd('BufWritePre', {
   group = augroup('trim_whitespace', { clear = true }),
   pattern = '*',
   callback = function()
-    if vim.bo.filetype == 'markdown' then
+    if not vim.bo.modifiable or vim.bo.buftype ~= '' or vim.bo.filetype == 'markdown' then
       return
     end
     local save_cursor = vim.fn.getpos('.')
@@ -164,9 +164,13 @@ autocmd('TermOpen', {
 -- ターミナル終了時に自動でウィンドウを閉じる
 autocmd('TermClose', {
   group = augroup('terminal_close', { clear = true }),
-  callback = function()
+  callback = function(args)
     if vim.v.event.status == 0 then
-      vim.cmd('bdelete')
+      vim.schedule(function()
+        if vim.api.nvim_buf_is_valid(args.buf) then
+          vim.api.nvim_buf_delete(args.buf, { force = true })
+        end
+      end)
     end
   end,
   desc = 'ターミナル終了時に自動クローズ',
@@ -216,7 +220,9 @@ autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI' }, {
 autocmd('VimResized', {
   group = augroup('resize_splits', { clear = true }),
   callback = function()
+    local current_tab = vim.api.nvim_get_current_tabpage()
     vim.cmd('tabdo wincmd =')
+    vim.api.nvim_set_current_tabpage(current_tab)
   end,
   desc = 'ウィンドウリサイズ時に分割を均等化',
 })
@@ -239,7 +245,7 @@ autocmd('FileType', {
 -- 10. LSP関連（プラグイン導入後に有効化される）
 ------------------------------------------------------------------------------
 
--- LSPアタッチ時の設定（lsp.lua内で定義）
+-- LSP設定はlsp.lua、フロートウィンドウの枠はoptions.lua内で定義
 -- 診断の自動表示設定なども可能
 
 ------------------------------------------------------------------------------

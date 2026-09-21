@@ -65,7 +65,7 @@ return {
       zsh = { 'shfmt' },
       terraform = { 'terraform_fmt' },
 
-      -- 全ファイルタイプ共通（末尾の空白除去など）
+      -- 個別フォーマッターがないファイルタイプのフォールバック（手動整形にも使用）
       ['_'] = { 'trim_whitespace' },
     },
 
