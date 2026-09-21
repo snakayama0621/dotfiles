@@ -2,6 +2,7 @@
   "scripts": {
     "test": "bash tests/run_all.sh",
     "test:syntax": "bash tests/test_syntax.sh",
+    "test:nvim": "bash tests/test_nvim.sh",
     "test:deny-check": "bash tests/test_deny_check.sh",
     "test:link": "bash tests/test_link.sh",
     "test:setup": "bash tests/test_setup.sh",
