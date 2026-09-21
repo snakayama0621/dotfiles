@@ -436,7 +436,12 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # Added by LM Studio CLI (lms)
 [[ -d "$HOME/.lmstudio/bin" ]] && export PATH="$PATH:$HOME/.lmstudio/bin"
 # End of LM Studio CLI section
+# Hermes Agent — ensure ~/.local/bin is on PATH
+export PATH="$HOME/.local/bin:$PATH"
 
 # >>> AGI Cockpit >>>
 [[ -d "$HOME/.agi-tools/data/cockpit/master/bin" ]] && export PATH="$HOME/.agi-tools/data/cockpit/master/bin:$PATH"
 # <<< AGI Cockpit <<<
+
+# Added by Devin (Windsurf)
+[[ -d "$HOME/.codeium/windsurf/bin" ]] && export PATH="$HOME/.codeium/windsurf/bin:$PATH"
