@@ -10,6 +10,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 tests=(
   "$SCRIPT_DIR/test_syntax.sh"
+  "$SCRIPT_DIR/test_nvim.sh"
   "$SCRIPT_DIR/test_deny_check.sh"
   "$SCRIPT_DIR/test_link.sh"
   "$SCRIPT_DIR/test_setup.sh"

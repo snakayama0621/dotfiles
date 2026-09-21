@@ -90,11 +90,11 @@ return {
         dependencies = { 'williamboman/mason.nvim' },
         opts = {
           ensure_installed = {
-            'debugpy',           -- Python
+            'python',            -- Python (debugpy)
             'delve',             -- Go
             'codelldb',          -- Rust/C/C++
-            'js-debug-adapter',  -- JavaScript/TypeScript
-            'php-debug-adapter', -- PHP
+            'js',                -- JavaScript/TypeScript (js-debug-adapter)
+            'php',               -- PHP (php-debug-adapter)
           },
           automatic_installation = true,
           handlers = {},
