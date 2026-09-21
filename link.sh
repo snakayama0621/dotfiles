@@ -37,6 +37,7 @@ LINKS=(
   "$HOME/.gitconfig:$DOTFILE_DIR/.gitconfig"
   "$HOME/.config/starship.toml:$DOTFILE_DIR/starship.toml"
   "$HOME/.config/wezterm:$DOTFILE_DIR/wezterm"
+  "$HOME/.config/ghostty:$DOTFILE_DIR/ghostty"
   "$HOME/.config/nvim:$DOTFILE_DIR/nvim"
   "$HOME/.config/sheldon:$DOTFILE_DIR/sheldon"
   "$HOME/.config/yazi:$DOTFILE_DIR/yazi"

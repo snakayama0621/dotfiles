@@ -1,0 +1,8 @@
+font-family = Hack Nerd Font Mono
+macos-option-as-alt = left
+
+# WezTermと同じペイン移動
+keybind = super+shift+h=goto_split:left
+keybind = super+shift+j=goto_split:down
+keybind = super+shift+k=goto_split:up
+keybind = super+shift+l=goto_split:right

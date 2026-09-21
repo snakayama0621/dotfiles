@@ -124,6 +124,7 @@ brew "mysql"              # データベース
 cask "iterm2"             # ターミナルエミュレータ
 cask "warp"               # モダンターミナル
 cask "wezterm"            # GPU加速ターミナル
+cask "ghostty"            # GPU加速ターミナル(Zig製)
 
 # 開発ツール
 cask "visual-studio-code" # エディタ
