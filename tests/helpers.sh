@@ -150,9 +150,13 @@ make_dotfiles_fixture() {
   } > "$fixture/.codex/user-config.toml.template"
   printf 'Codex instructions\n' > "$fixture/.codex/AGENTS.md"
 
-  mkdir -p "$fixture/.claude/scripts"
+  mkdir -p "$fixture/.claude/scripts" "$fixture/.claude/hooks"
+  printf '#!/bin/sh\n' > "$fixture/.claude/hooks/herdr-agent-state.sh"
   printf '{"example": true}\n' > "$fixture/.claude/settings.example.json"
   printf 'Claude instructions\n' > "$fixture/.claude/CLAUDE.md"
+
+  mkdir -p "$fixture/herdr"
+  printf 'fixture: herdr\n' > "$fixture/herdr/config.toml"
 
   for file in \
     .tmux.conf \
