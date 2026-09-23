@@ -24,6 +24,7 @@ brew "switchaudio-osx"    # オーディオ切替（sketchybar用）
 brew "nowplaying-cli"     # メディア情報取得（sketchybar用）
 brew "starship"           # プロンプトカスタマイズ
 brew "tmux"               # ターミナルマルチプレクサ
+brew "herdr"              # AIエージェント向けターミナルマルチプレクサ
 brew "zoxide"             # スマートcd
 brew "im-select"          # IME切り替えツール（Neovim用）
 

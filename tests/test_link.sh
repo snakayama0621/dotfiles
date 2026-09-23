@@ -58,6 +58,8 @@ assert_contains "既存ファイルのバックアップを通知する" "$link_
 assert_symlink_target ".zshrc をリポジトリへリンクする" "$link_home/.zshrc" "$link_fixture/.zshrc"
 assert_symlink_target "誤った .tmux.conf symlink を張り替える" "$link_home/.tmux.conf" "$link_fixture/.tmux.conf"
 assert_symlink_target "Codex config を生成物へリンクする" "$link_home/.codex/config.toml" "$link_fixture/.codex/user-config.toml"
+assert_symlink_target "Claude hooks をリンクする" "$link_home/.claude/hooks" "$link_fixture/.claude/hooks"
+assert_symlink_target "herdr config をファイル単位でリンクする" "$link_home/.config/herdr/config.toml" "$link_fixture/herdr/config.toml"
 assert_symlink_target "Claude scripts をリンクする" "$link_home/.claude/scripts" "$link_fixture/.claude/scripts"
 assert_file_contains "Codex template の HOME を展開する" "$link_fixture/.codex/user-config.toml" "home = \"$link_home\""
 assert_file_contains "Codex template の DOTFILE_DIR を展開する" "$link_fixture/.codex/user-config.toml" "dotfile_dir = \"$link_fixture\""

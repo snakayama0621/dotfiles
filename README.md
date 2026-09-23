@@ -28,7 +28,8 @@
 | `sketchybar/` | Sketchybarステータスバー設定 | `~/.config/sketchybar` | [README](sketchybar/README.md) |
 | `htop/` | htopプロセスビューア設定 | `~/.config/htop` | - |
 | `neofetch/` | Neofetchシステム情報表示設定 | `~/.config/neofetch` | - |
-| `.claude/` | Claude Code設定（権限・フック・スクリプト） | `~/.claude/` | - |
+| `herdr/config.toml` | herdrキーバインド設定 | `~/.config/herdr/config.toml` | ログ・ソケットと同居するためファイル単位でリンク |
+| `.claude/` | Claude Code設定（権限・フック・スクリプト） | `~/.claude/` | `hooks/herdr-agent-state.sh` は herdr が生成・更新するため直接編集しない |
 | `.codex/` | Codex設定（MCP・指示ファイル） | `~/.codex/` | `~/.codex/config.toml` は生成された `.codex/user-config.toml` へのシンボリックリンクで管理 |
 | `commitlint.config.js` | コミットメッセージ検証設定（cz-git） | `~/commitlint.config.js` | - |
 | `Brewfile` | Homebrewパッケージ管理 | - | - |

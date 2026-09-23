@@ -1,0 +1,17 @@
+onboarding = false
+
+# WezTerm-like keys after Ctrl+b.
+[keys]
+prefix = "ctrl+b"
+new_tab = "prefix+t"
+previous_tab = ["prefix+shift+[", "prefix+p"]
+next_tab = ["prefix+shift+]", "prefix+n"]
+split_vertical = "prefix+d"
+split_horizontal = "prefix+shift+d"
+close_tab = "prefix+w"
+close_pane = "prefix+shift+w"
+
+# Keep workspace actions available without conflicting with the keys above.
+workspace_picker = "prefix+alt+w"
+rename_workspace = "prefix+alt+shift+w"
+close_workspace = "prefix+alt+shift+d"
