@@ -40,6 +40,7 @@
 - 設定ファイルは基本的にこのリポジトリで管理し、`link.sh` でホームディレクトリ配下へシンボリックリンクします
 - マシン固有・個人情報を含む設定は、サンプルファイルだけを管理して実体は Git 管理外に置きます
 - Codex の `user-config.toml` は `.codex/user-config.toml.template` から `link.sh` 実行時に生成し、`{{HOME}}` と `{{DOTFILE_DIR}}` を現在のマシンに合わせて展開します
+- Claude Code の `.claude/settings.json` は `/model` などで書き換わるため Git 管理外です。存在しない場合は `link.sh` 実行時に `.claude/settings.example.json` からコピーします（既存ファイルは上書きしません）
 - `node_modules/` は管理対象にせず、`package-lock.json` と `package.json` から再現します
 - `setup.sh -d` と `link.sh -d` で、実際に変更する前の dry-run を確認できます
 

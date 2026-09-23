@@ -151,7 +151,7 @@ make_dotfiles_fixture() {
   printf 'Codex instructions\n' > "$fixture/.codex/AGENTS.md"
 
   mkdir -p "$fixture/.claude/scripts"
-  printf '{}\n' > "$fixture/.claude/settings.json"
+  printf '{"example": true}\n' > "$fixture/.claude/settings.example.json"
   printf 'Claude instructions\n' > "$fixture/.claude/CLAUDE.md"
 
   for file in \

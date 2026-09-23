@@ -49,3 +49,6 @@ node_modules/
 
 # Git local config (contains user-specific settings)
 .gitconfig.local
+
+# Claude settings (machine-specific; see .claude/settings.example.json)
+.claude/settings.json
