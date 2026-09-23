@@ -39,7 +39,7 @@ bold "--- JSON ---"
 for json_file in \
   "$REPO_DIR/package.json" \
   "$REPO_DIR/package-lock.json" \
-  "$REPO_DIR/.claude/settings.json"
+  "$REPO_DIR/.claude/settings.example.json"
 do
   jq empty "$json_file"
   assert_eq "JSON 構文: ${json_file#$REPO_DIR/}" "0" "$?"

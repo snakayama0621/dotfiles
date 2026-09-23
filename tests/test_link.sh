@@ -32,6 +32,8 @@ assert_contains "dry-run は Codex 設定生成予定を表示する" "$dry_outp
 assert_not_exists "dry-run は Codex 生成物を書き込まない" "$dry_fixture/.codex/user-config.toml"
 assert_not_exists "dry-run は HOME 配下に .config を作らない" "$dry_home/.config"
 assert_not_exists "dry-run は HOME 配下に .codex を作らない" "$dry_home/.codex"
+assert_contains "dry-run は Claude 設定の作成予定を表示する" "$dry_output" "Would create Claude settings"
+assert_not_exists "dry-run は Claude 設定を書き込まない" "$dry_fixture/.claude/settings.json"
 
 echo ""
 bold "--- 実行時のリンク作成 ---"
@@ -60,7 +62,22 @@ assert_symlink_target "Claude scripts をリンクする" "$link_home/.claude/sc
 assert_file_contains "Codex template の HOME を展開する" "$link_fixture/.codex/user-config.toml" "home = \"$link_home\""
 assert_file_contains "Codex template の DOTFILE_DIR を展開する" "$link_fixture/.codex/user-config.toml" "dotfile_dir = \"$link_fixture\""
 assert_file_contains "Codex local 設定を追記する" "$link_fixture/.codex/user-config.toml" "local_setting = true"
+assert_file_contains "Claude 設定を example から作成する" "$link_fixture/.claude/settings.json" '"example": true'
+assert_symlink_target "Claude 設定をリンクする" "$link_home/.claude/settings.json" "$link_fixture/.claude/settings.json"
 assert_file_contains ".gitconfig.local は既存内容を保持する" "$link_home/.gitconfig.local" "existing git local"
+
+echo ""
+bold "--- 既存 Claude 設定の保持 ---"
+
+keep_fixture="$TMP_ROOT/keep-fixture"
+keep_home="$TMP_ROOT/keep-home"
+mkdir -p "$keep_home"
+make_dotfiles_fixture "$keep_fixture"
+printf 'existing git local\n' > "$keep_home/.gitconfig.local"
+printf '{"local": true}\n' > "$keep_fixture/.claude/settings.json"
+
+HOME="$keep_home" "$keep_fixture/link.sh" >/dev/null 2>&1
+assert_file_contains "既存の Claude 設定を上書きしない" "$keep_fixture/.claude/settings.json" '"local": true'
 
 backup_count=$(find "$link_home" -maxdepth 1 -name '.zshrc.backup.*' -type f | wc -l | tr -d '[:space:]')
 assert_eq "既存 .zshrc のバックアップを1つ作る" "1" "$backup_count"
